@@ -14,6 +14,7 @@ interface UIStoreState {
   viewMode: 'grid' | 'list';
   isCommandPaletteOpen: boolean;
   isMobileNavOpen: boolean;
+  isSidebarCollapsed: boolean;
 }
 
 interface UIStoreActions {
@@ -28,6 +29,7 @@ interface UIStoreActions {
   setViewMode: (mode: 'grid' | 'list') => void;
   setCommandPaletteOpen: (open: boolean) => void;
   setMobileNavOpen: (open: boolean) => void;
+  toggleSidebarCollapsed: () => void;
 }
 
 const initialFilters = { continents: [] as Continent[], statuses: [] as CountryStatus[] };
@@ -42,6 +44,7 @@ export const useUIStore = create<UIStoreState & UIStoreActions>()((set) => ({
   viewMode: 'grid',
   isCommandPaletteOpen: false,
   isMobileNavOpen: false,
+  isSidebarCollapsed: true,
 
   selectCountry: (code) => set({ selectedCountryCode: code }),
   openDetail: (code) => set({ selectedCountryCode: code, isDetailOpen: true }),
@@ -56,4 +59,5 @@ export const useUIStore = create<UIStoreState & UIStoreActions>()((set) => ({
   setViewMode: (mode) => set({ viewMode: mode }),
   setCommandPaletteOpen: (open) => set({ isCommandPaletteOpen: open }),
   setMobileNavOpen: (open) => set({ isMobileNavOpen: open }),
+  toggleSidebarCollapsed: () => set((s) => ({ isSidebarCollapsed: !s.isSidebarCollapsed })),
 }));
