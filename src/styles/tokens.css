@@ -1,43 +1,46 @@
 :root {
-  --color-background: #FAFAF8;
-  --color-background-secondary: #F4F4F0;
+  --color-background: #FAF8F3;
+  --color-background-secondary: #F2EDE4;
   --color-card: #FFFFFF;
-  --color-card-hover: #FAFAF8;
+  --color-card-hover: #FAF8F3;
 
-  --color-foreground: #1A1A17;
-  --color-foreground-secondary: #52524A;
-  --color-foreground-muted: #737369;
+  --color-foreground: #1C2331;
+  --color-foreground-secondary: #4E5564;
+  --color-foreground-muted: #8B8E96;
 
-  --color-border: #E5E5DF;
-  --color-border-strong: #D4D4CC;
+  --color-border: #E5DFD5;
+  --color-border-strong: #D4CCC0;
 
-  --color-primary: #196179;
-  --color-primary-hover: #187894;
+  --color-primary: #1B3A5C;
+  --color-primary-hover: #264E7A;
   --color-primary-foreground: #FFFFFF;
-  --color-primary-light: #F0F9FB;
+  --color-primary-light: #EDF2F7;
 
-  --color-visited: #16A34A;
-  --color-visited-light: #F0FDF4;
-  --color-visited-foreground: #15803D;
-  --color-planned: #D97706;
-  --color-planned-light: #FFFBEB;
-  --color-planned-foreground: #92400E;
-  --color-not-visited: #D4D4D8;
-  --color-not-visited-foreground: #71717A;
+  --color-visited: #2D6A4F;
+  --color-visited-hover: #40916C;
+  --color-visited-light: #EEF5F1;
+  --color-visited-foreground: #1B4332;
+  --color-planned: #C17B3A;
+  --color-planned-hover: #D49050;
+  --color-planned-light: #FDF3EC;
+  --color-planned-foreground: #8B4E2E;
+  --color-not-visited: #D5D0C8;
+  --color-not-visited-foreground: #8A857E;
 
-  --color-destructive: #DC2626;
-  --color-destructive-hover: #B91C1C;
+  --color-destructive: #C53030;
+  --color-destructive-hover: #A52828;
   --color-destructive-foreground: #FFFFFF;
-  --color-success: #16A34A;
+  --color-success: #2D6A4F;
   --color-success-foreground: #FFFFFF;
-  --color-warning: #D97706;
+  --color-warning: #C17B3A;
 
-  --color-map-water: #DBEAFE;
-  --color-map-stroke: #94A3B8;
-  --color-map-hover: #CBD5E1;
+  --color-map-water: #D8E6EE;
+  --color-map-stroke: #B8C4CC;
+  --color-map-hover: #C5CED6;
+  --color-map-graticule: #E8E2D8;
 
-  --color-ring: #196179;
-  --color-overlay: rgba(0, 0, 0, 0.6);
+  --color-ring: #1B3A5C;
+  --color-overlay: rgba(28, 35, 49, 0.6);
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
@@ -54,43 +57,46 @@
 }
 
 [data-theme='dark'] {
-  --color-background: #1A1A17;
-  --color-background-secondary: #262622;
-  --color-card: #2A2A26;
-  --color-card-hover: #333330;
+  --color-background: #141A24;
+  --color-background-secondary: #1C2330;
+  --color-card: #202838;
+  --color-card-hover: #283040;
 
-  --color-foreground: #F4F4F0;
-  --color-foreground-secondary: #A3A39B;
-  --color-foreground-muted: #737369;
+  --color-foreground: #E8E4DC;
+  --color-foreground-secondary: #9BA3B0;
+  --color-foreground-muted: #6B7280;
 
-  --color-border: #3F3F39;
-  --color-border-strong: #52524A;
+  --color-border: #2E3544;
+  --color-border-strong: #3D4556;
 
-  --color-primary: #38B3CC;
-  --color-primary-hover: #76CFE0;
-  --color-primary-foreground: #0D2C39;
-  --color-primary-light: #0D2C39;
+  --color-primary: #5BA3C9;
+  --color-primary-hover: #7BBAD6;
+  --color-primary-foreground: #0D1B2A;
+  --color-primary-light: #172A3A;
 
-  --color-visited: #22C55E;
-  --color-visited-light: #052E16;
-  --color-visited-foreground: #4ADE80;
-  --color-planned: #F59E0B;
-  --color-planned-light: #451A03;
-  --color-planned-foreground: #FCD34D;
-  --color-not-visited: #3F3F46;
-  --color-not-visited-foreground: #A1A1AA;
+  --color-visited: #40916C;
+  --color-visited-hover: #52B788;
+  --color-visited-light: #0D2B1E;
+  --color-visited-foreground: #6BCB96;
+  --color-planned: #D49050;
+  --color-planned-hover: #E0A468;
+  --color-planned-light: #2D1F0E;
+  --color-planned-foreground: #E8B47A;
+  --color-not-visited: #2E3440;
+  --color-not-visited-foreground: #8B8E96;
 
-  --color-destructive: #EF4444;
+  --color-destructive: #E53E3E;
   --color-destructive-hover: #DC2626;
   --color-destructive-foreground: #FFFFFF;
-  --color-success: #22C55E;
+  --color-success: #40916C;
   --color-success-foreground: #FFFFFF;
 
-  --color-map-water: #1E293B;
-  --color-map-stroke: #475569;
-  --color-map-hover: #334155;
+  --color-map-water: #111820;
+  --color-map-stroke: #2E3A4A;
+  --color-map-hover: #2D3748;
+  --color-map-graticule: #1E2636;
 
-  --color-ring: #38B3CC;
+  --color-ring: #5BA3C9;
   --color-overlay: rgba(0, 0, 0, 0.75);
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);

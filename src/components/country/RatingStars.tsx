@@ -36,7 +36,7 @@ export function RatingStars({ value = 0, onChange, readonly = false, className }
               className={cn(
                 'size-5',
                 filled
-                  ? 'fill-amber-400 text-amber-400'
+                  ? 'fill-planned text-planned'
                   : 'fill-transparent text-foreground-muted',
               )}
             />

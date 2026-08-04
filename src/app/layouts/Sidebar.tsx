@@ -1,22 +1,22 @@
 import { NavLink } from 'react-router-dom';
-import { Map, List, BarChart3, Settings } from 'lucide-react';
+import { Globe2, BookOpen, Compass, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { to: '/', icon: Map, label: 'Map' },
-  { to: '/countries', icon: List, label: 'Countries' },
-  { to: '/statistics', icon: BarChart3, label: 'Statistics' },
-  { to: '/settings', icon: Settings, label: 'Settings' },
+  { to: '/', icon: Globe2, label: 'Atlas' },
+  { to: '/countries', icon: BookOpen, label: 'Landen' },
+  { to: '/statistics', icon: Compass, label: 'Ontdek' },
+  { to: '/settings', icon: Settings, label: 'Instellingen' },
 ];
 
 export function Sidebar() {
   return (
     <aside className="flex h-screen w-64 flex-col border-r border-border bg-card">
       <div className="flex h-16 items-center gap-2 px-6">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-sm">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-sm" style={{ fontFamily: 'var(--font-display)' }}>
           M
         </div>
-        <span className="text-lg font-bold text-foreground">Mappa</span>
+        <span className="text-lg font-bold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>Mappa</span>
       </div>
 
       <nav className="flex-1 px-3 py-4" aria-label="Main navigation">

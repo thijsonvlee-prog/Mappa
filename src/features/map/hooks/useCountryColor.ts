@@ -17,27 +17,27 @@ function subscribeToTheme(callback: () => void): () => void {
 
 const fills = {
   light: {
-    visited: '#16A34A',
-    planned: '#D97706',
-    not_visited: '#D4D4D8',
+    visited: '#2D6A4F',
+    planned: '#C17B3A',
+    not_visited: '#D5D0C8',
   },
   dark: {
-    visited: '#22C55E',
-    planned: '#F59E0B',
-    not_visited: '#3F3F46',
+    visited: '#40916C',
+    planned: '#D49050',
+    not_visited: '#2E3440',
   },
 } as const;
 
 const hoverFills = {
   light: {
-    visited: '#22C55E',
-    planned: '#F59E0B',
-    not_visited: '#C4C4CC',
+    visited: '#40916C',
+    planned: '#D49050',
+    not_visited: '#C5CED6',
   },
   dark: {
-    visited: '#4ADE80',
-    planned: '#FBBF24',
-    not_visited: '#52525B',
+    visited: '#52B788',
+    planned: '#E0A468',
+    not_visited: '#2D3748',
   },
 } as const;
 

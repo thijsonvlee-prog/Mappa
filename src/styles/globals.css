@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap');
 @import 'tailwindcss';
 @import './tokens.css';
 
@@ -16,10 +17,15 @@
   --color-primary-foreground: var(--color-primary-foreground);
   --color-primary-light: var(--color-primary-light);
   --color-visited: var(--color-visited);
+  --color-visited-hover: var(--color-visited-hover);
   --color-visited-light: var(--color-visited-light);
+  --color-visited-foreground: var(--color-visited-foreground);
   --color-planned: var(--color-planned);
+  --color-planned-hover: var(--color-planned-hover);
   --color-planned-light: var(--color-planned-light);
+  --color-planned-foreground: var(--color-planned-foreground);
   --color-not-visited: var(--color-not-visited);
+  --color-not-visited-foreground: var(--color-not-visited-foreground);
   --color-destructive: var(--color-destructive);
   --color-destructive-hover: var(--color-destructive-hover);
   --color-destructive-foreground: var(--color-destructive-foreground);
@@ -30,6 +36,7 @@
   --color-map-water: var(--color-map-water);
   --color-map-stroke: var(--color-map-stroke);
   --color-map-hover: var(--color-map-hover);
+  --color-map-graticule: var(--color-map-graticule);
   --shadow-sm: var(--shadow-sm);
   --shadow-md: var(--shadow-md);
   --shadow-lg: var(--shadow-lg);
@@ -38,6 +45,9 @@
   --radius-lg: var(--radius-lg);
   --radius-xl: var(--radius-xl);
   --radius-full: var(--radius-full);
+  --font-display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 }
 
 * {
@@ -47,7 +57,7 @@
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

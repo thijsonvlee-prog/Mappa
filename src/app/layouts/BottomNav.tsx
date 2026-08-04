@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { Map, List, BarChart3, Settings } from 'lucide-react';
+import { Globe2, BookOpen, Compass, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { to: '/', icon: Map, label: 'Map' },
-  { to: '/countries', icon: List, label: 'Countries' },
-  { to: '/statistics', icon: BarChart3, label: 'Stats' },
-  { to: '/settings', icon: Settings, label: 'Settings' },
+  { to: '/', icon: Globe2, label: 'Atlas' },
+  { to: '/countries', icon: BookOpen, label: 'Landen' },
+  { to: '/statistics', icon: Compass, label: 'Ontdek' },
+  { to: '/settings', icon: Settings, label: 'Instellingen' },
 ];
 
 export function BottomNav() {
@@ -23,15 +23,26 @@ export function BottomNav() {
               end={item.to === '/'}
               className={({ isActive }) =>
                 cn(
-                  'flex flex-col items-center gap-1 py-2 text-xs font-medium transition-colors',
+                  'flex flex-col items-center gap-1 py-3 px-2 text-xs font-medium transition-colors',
                   isActive
                     ? 'text-primary'
                     : 'text-foreground-muted hover:text-foreground',
                 )
               }
             >
-              <item.icon className="h-5 w-5" />
-              <span>{item.label}</span>
+              {({ isActive }) => (
+                <>
+                  <div
+                    className={cn(
+                      'rounded-lg p-1.5 transition-colors',
+                      isActive ? 'bg-primary-light' : 'bg-transparent',
+                    )}
+                  >
+                    <item.icon className="h-5 w-5" />
+                  </div>
+                  <span className="hidden sm:inline">{item.label}</span>
+                </>
+              )}
             </NavLink>
           </li>
         ))}
