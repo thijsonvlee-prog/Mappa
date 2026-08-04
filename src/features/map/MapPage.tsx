@@ -1,0 +1,129 @@
+import { useMemo } from 'react';
+import { Globe, MapPin, Map, Building2 } from 'lucide-react';
+import { WorldMap } from './WorldMap';
+import { useCountryStore } from '@/stores/country-store';
+import { countryMap, TOTAL_COUNTRIES } from '@/data/countries-lookup';
+import { computeStats } from '@/lib/stats-utils';
+import { useIsDesktop } from '@/hooks/useMediaQuery';
+import { getCountry } from '@/data/countries-lookup';
+import { CountryFlag } from '@/components/country/CountryFlag';
+import { StatusBadge } from '@/components/country/StatusBadge';
+import { cn } from '@/lib/utils';
+import { formatPercentage } from '@/lib/utils';
+
+function StatCard({
+  label,
+  value,
+  icon,
+}: {
+  label: string;
+  value: string | number;
+  icon: React.ReactNode;
+}) {
+  return (
+    <div
+      className={cn(
+        'flex items-center gap-3 p-4',
+        'bg-card border border-border rounded-[var(--radius-lg)]',
+        'shadow-sm',
+      )}
+    >
+      <div className="flex items-center justify-center size-10 rounded-[var(--radius-md)] bg-primary-light text-primary shrink-0">
+        {icon}
+      </div>
+      <div className="min-w-0">
+        <p className="text-2xl font-bold text-foreground leading-tight">{value}</p>
+        <p className="text-xs text-foreground-muted">{label}</p>
+      </div>
+    </div>
+  );
+}
+
+export function MapPage() {
+  const visits = useCountryStore((s) => s.visits);
+  const isDesktop = useIsDesktop();
+
+  const stats = useMemo(
+    () => computeStats(visits, countryMap, TOTAL_COUNTRIES),
+    [visits],
+  );
+
+  const sidebar = (
+    <div className="flex flex-col gap-4 p-4">
+      <h2 className="text-lg font-semibold text-foreground">Travel Stats</h2>
+
+      <div className="grid grid-cols-2 gap-3">
+        <StatCard
+          label="Countries"
+          value={stats.totalVisited}
+          icon={<Globe className="size-5" />}
+        />
+        <StatCard
+          label="Of World"
+          value={formatPercentage(stats.percentageOfWorld)}
+          icon={<Map className="size-5" />}
+        />
+        <StatCard
+          label="Continents"
+          value={`${stats.continentsReached}/${stats.totalContinents}`}
+          icon={<MapPin className="size-5" />}
+        />
+        <StatCard
+          label="Cities"
+          value={stats.totalCities}
+          icon={<Building2 className="size-5" />}
+        />
+      </div>
+
+      {stats.recentlyAdded.length > 0 && (
+        <div className="mt-2">
+          <h3 className="text-sm font-medium text-foreground mb-2">Recently Visited</h3>
+          <div className="flex flex-col gap-1">
+            {stats.recentlyAdded.map((visit) => {
+              const country = getCountry(visit.countryCode);
+              if (!country) return null;
+              return (
+                <div
+                  key={visit.countryCode}
+                  className={cn(
+                    'flex items-center gap-2 px-3 py-2',
+                    'rounded-[var(--radius-md)] hover:bg-background-secondary',
+                    'transition-colors duration-[var(--transition-fast)]',
+                  )}
+                >
+                  <CountryFlag flag={country.flag} size="sm" />
+                  <span className="text-sm text-foreground truncate flex-1">
+                    {country.name}
+                  </span>
+                  <StatusBadge status={visit.status} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  if (isDesktop) {
+    return (
+      <div className="flex h-full">
+        <div className="flex-1 relative">
+          <WorldMap className="absolute inset-0" />
+        </div>
+        <aside className="w-80 border-l border-border overflow-y-auto bg-background">
+          {sidebar}
+        </aside>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col h-full">
+      <div className="relative h-[50vh] min-h-[300px]">
+        <WorldMap className="absolute inset-0" />
+      </div>
+      <div className="overflow-y-auto bg-background">{sidebar}</div>
+    </div>
+  );
+}

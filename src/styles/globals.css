@@ -1,0 +1,121 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+@theme {
+  --color-background: var(--color-background);
+  --color-background-secondary: var(--color-background-secondary);
+  --color-card: var(--color-card);
+  --color-card-hover: var(--color-card-hover);
+  --color-foreground: var(--color-foreground);
+  --color-foreground-secondary: var(--color-foreground-secondary);
+  --color-foreground-muted: var(--color-foreground-muted);
+  --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-primary-light: var(--color-primary-light);
+  --color-visited: var(--color-visited);
+  --color-visited-light: var(--color-visited-light);
+  --color-planned: var(--color-planned);
+  --color-planned-light: var(--color-planned-light);
+  --color-not-visited: var(--color-not-visited);
+  --color-destructive: var(--color-destructive);
+  --color-destructive-hover: var(--color-destructive-hover);
+  --color-destructive-foreground: var(--color-destructive-foreground);
+  --color-ring: var(--color-ring);
+  --color-success: var(--color-success);
+  --color-success-foreground: var(--color-success-foreground);
+  --color-overlay: var(--color-overlay);
+  --color-map-water: var(--color-map-water);
+  --color-map-stroke: var(--color-map-stroke);
+  --color-map-hover: var(--color-map-hover);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-full: var(--radius-full);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes dialogIn {
+  from { opacity: 0; scale: 0.95; }
+  to { opacity: 1; scale: 1; }
+}
+
+@keyframes dialogOut {
+  from { opacity: 1; scale: 1; }
+  to { opacity: 0; scale: 0.95; }
+}
+
+@keyframes slideInRight {
+  from { translate: 100% 0; }
+  to { translate: 0 0; }
+}
+
+@keyframes slideOutRight {
+  from { translate: 0 0; }
+  to { translate: 100% 0; }
+}
+
+@keyframes slideInLeft {
+  from { translate: -100% 0; }
+  to { translate: 0 0; }
+}
+
+@keyframes slideOutLeft {
+  from { translate: 0 0; }
+  to { translate: -100% 0; }
+}
+
+@keyframes slideInTop {
+  from { translate: 0 -100%; }
+  to { translate: 0 0; }
+}
+
+@keyframes slideOutTop {
+  from { translate: 0 0; }
+  to { translate: 0 -100%; }
+}
+
+@keyframes slideInBottom {
+  from { translate: 0 100%; }
+  to { translate: 0 0; }
+}
+
+@keyframes slideOutBottom {
+  from { translate: 0 0; }
+  to { translate: 0 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
