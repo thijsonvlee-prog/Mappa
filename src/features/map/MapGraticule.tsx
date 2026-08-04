@@ -1,58 +1,56 @@
-interface MapGraticuleProps {
-  projection?: string;
-  zoom: number;
-}
+// Subtle gridlines for latitude/longitude reference
+// Renders at 30° intervals when map is zoomed out (zoom < 4)
 
-export function MapGraticule({ zoom }: MapGraticuleProps) {
+export function MapGraticule({ zoom }: { zoom: number }) {
+  // Don't show graticule when zoomed in
   if (zoom > 4) return null;
 
   const lines = [];
-  const step = 30;
-  const opacity = 0.15 - (zoom * 0.03);
-
-  for (let lat = -90; lat <= 90; lat += step) {
+  
+  // Latitude lines (every 30°)
+  for (let lat = -60; lat <= 60; lat += 30) {
     lines.push(
       <line
         key={`lat-${lat}`}
-        x1="-180"
-        y1={lat}
-        x2="180"
-        y2={lat}
+        x1="0"
+        y1={((lat + 90) / 180) * 100 + '%'}
+        x2="100%"
+        y2={((lat + 90) / 180) * 100 + '%'}
         stroke="var(--color-map-graticule)"
         strokeWidth="0.5"
-        opacity={Math.max(0.05, opacity)}
+        opacity="0.4"
       />
     );
   }
 
-  for (let lng = -180; lng <= 180; lng += step) {
+  // Longitude lines (every 30°)
+  for (let lng = -180; lng <= 180; lng += 30) {
     lines.push(
       <line
         key={`lng-${lng}`}
-        x1={lng}
-        y1="-90"
-        x2={lng}
-        y2="90"
+        x1={((lng + 180) / 360) * 100 + '%'}
+        y1="0"
+        x2={((lng + 180) / 360) * 100 + '%'}
+        y2="100%"
         stroke="var(--color-map-graticule)"
         strokeWidth="0.5"
-        opacity={Math.max(0.05, opacity)}
+        opacity="0.4"
       />
     );
   }
 
   return (
     <svg
-      viewBox="-180 -90 360 180"
       style={{
         position: 'absolute',
-        top: 0,
-        left: 0,
+        inset: 0,
         width: '100%',
         height: '100%',
         pointerEvents: 'none',
+        zIndex: 1,
       }}
     >
-      <g>{lines}</g>
+      {lines}
     </svg>
   );
 }
