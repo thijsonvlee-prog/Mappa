@@ -15,8 +15,12 @@ function AppContent() {
     if (ready && navigator.storage?.persist) {
       navigator.storage.persisted().then((isPersisted) => {
         if (!isPersisted) {
-          navigator.storage.persist();
+          navigator.storage.persist().catch(() => {
+            // Storage persistence may be denied; app continues to work offline locally
+          });
         }
+      }).catch(() => {
+        // Storage API not available; app continues to work offline locally
       });
     }
   }, [ready]);

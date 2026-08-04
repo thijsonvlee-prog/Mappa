@@ -29,6 +29,7 @@
     "@radix-ui/react-toggle-group": "^1.1.19",
     "@radix-ui/react-tooltip": "^1.2.16",
     "@radix-ui/react-visually-hidden": "^1.2.11",
+    "@tanstack/react-virtual": "^3.14.9",
     "@vnedyalk0v/react19-simple-maps": "^2.0.10",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",

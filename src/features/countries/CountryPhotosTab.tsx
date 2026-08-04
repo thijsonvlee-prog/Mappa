@@ -1,51 +1,9 @@
 import { useState, useCallback, useRef, type DragEvent } from 'react';
-import { Upload, Trash2, ImageIcon } from 'lucide-react';
+import { Upload } from 'lucide-react';
 import { useCountryStore } from '@/stores/country-store';
-import { db } from '@/db/database';
-import { useObjectUrl } from '@/hooks/useObjectUrl';
+import { PhotoThumbnail } from '@/components/photo/PhotoThumbnail';
 import { cn } from '@/lib/utils';
 import type { CountryVisit } from '@/types';
-
-interface PhotoThumbnailProps {
-  photoId: string;
-  onRemove: (id: string) => void;
-}
-
-function PhotoThumbnail({ photoId, onRemove }: PhotoThumbnailProps) {
-  const [blob, setBlob] = useState<Blob>();
-  const url = useObjectUrl(blob);
-
-  useState(() => {
-    db.photos.get(photoId).then((photo) => {
-      if (photo?.thumbnailBlob) setBlob(photo.thumbnailBlob);
-      else if (photo?.blob) setBlob(photo.blob);
-    });
-  });
-
-  return (
-    <div className="group relative aspect-square rounded-[var(--radius-md)] overflow-hidden bg-background-secondary">
-      {url ? (
-        <img src={url} alt="" className="w-full h-full object-cover" />
-      ) : (
-        <div className="flex items-center justify-center w-full h-full">
-          <ImageIcon className="size-6 text-foreground-muted" />
-        </div>
-      )}
-      <button
-        type="button"
-        onClick={() => onRemove(photoId)}
-        className={cn(
-          'absolute top-1.5 right-1.5 p-1.5',
-          'rounded-full bg-overlay text-white',
-          'opacity-0 group-hover:opacity-100',
-          'transition-opacity cursor-pointer',
-        )}
-      >
-        <Trash2 className="size-3.5" />
-      </button>
-    </div>
-  );
-}
 
 interface CountryPhotosTabProps {
   countryCode: string;
@@ -130,7 +88,8 @@ export function CountryPhotosTab({ countryCode, visit }: CountryPhotosTabProps) 
             <PhotoThumbnail
               key={photoId}
               photoId={photoId}
-              onRemove={removePhoto}
+              onClick={() => {}}
+              onDelete={() => removePhoto(photoId)}
             />
           ))}
         </div>
