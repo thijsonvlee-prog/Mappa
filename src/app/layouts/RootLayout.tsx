@@ -28,7 +28,7 @@ export function RootLayout() {
         <SkipLink />
         <RouteAnnouncer />
         <Sidebar />
-        <main id="main-content" className="flex-1 overflow-auto">
+        <main id="main-content" className="flex-1 overflow-auto bg-background">
           <ErrorBoundary>
             <Outlet />
           </ErrorBoundary>
