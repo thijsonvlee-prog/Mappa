@@ -10,14 +10,13 @@ const statusConfig: Record<CountryStatus, { label: string; variant: 'visited' | 
 interface StatusBadgeProps {
   status: CountryStatus;
   className?: string;
-  showIcon?: boolean;
 }
 
-export function StatusBadge({ status, className, showIcon = false }: StatusBadgeProps) {
+export function StatusBadge({ status, className }: StatusBadgeProps) {
   const { label, variant } = statusConfig[status];
 
   return (
-    <Badge variant={variant} className={className} showIcon={showIcon}>
+    <Badge variant={variant} className={className}>
       {label}
     </Badge>
   );

@@ -6,9 +6,6 @@ import { MapGeography } from './MapGeography';
 import { MapTooltip } from './MapTooltip';
 import { MapControls } from './MapControls';
 import { MapLegend } from './MapLegend';
-import { MapGraticule } from './MapGraticule';
-import { MapCompass } from './MapCompass';
-import { MapScale } from './MapScale';
 import { CountryQuickPanel } from './CountryQuickPanel';
 import { useMapInteraction } from './hooks/useMapInteraction';
 import { useSettingsStore } from '@/stores/settings-store';
@@ -102,9 +99,6 @@ export function WorldMap({ className }: WorldMapProps) {
         </ZoomableGroup>
       </ComposableMap>
 
-      <MapGraticule zoom={position.zoom} />
-      <MapCompass />
-      <MapScale zoom={position.zoom} />
       <MapControls onZoomIn={zoomIn} onZoomOut={zoomOut} onReset={resetView} />
       <MapLegend />
 

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Globe, MapPin, Map, Building2 } from 'lucide-react';
 import { WorldMap } from './WorldMap';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
@@ -43,15 +43,14 @@ function StatCard({
 export function MapPage() {
   const visits = useCountryStore((s) => s.visits);
   const isDesktop = useIsDesktop();
-  const [bottomSheetState, setBottomSheetState] = useState<'collapsed' | 'half' | 'full'>('collapsed');
 
   const stats = useMemo(
     () => computeStats(visits, countryMap, TOTAL_COUNTRIES),
     [visits],
   );
 
-  const statsContent = (
-    <div className="flex flex-col gap-4">
+  const sidebar = (
+    <div className="flex flex-col gap-4 p-4">
       <h2 className="text-lg font-semibold text-foreground">Travel Stats</h2>
 
       <div className="grid grid-cols-2 gap-3">
@@ -118,39 +117,24 @@ export function MapPage() {
             <WorldMap className="absolute inset-0" />
           </ErrorBoundary>
         </div>
-        <aside className="w-80 border-l border-border overflow-y-auto bg-background p-4">
-          {statsContent}
+        <aside className="w-80 border-l border-border overflow-y-auto bg-background">
+          {sidebar}
         </aside>
       </div>
     );
   }
 
   return (
-    <div className="relative h-full">
-      <ErrorBoundary
-        fallbackTitle="The map couldn't be displayed"
-        fallbackDescription="Try reloading the page. Your travel data is unaffected."
-      >
-        <WorldMap className="absolute inset-0" />
-      </ErrorBoundary>
-
-      <button
-        onClick={() => setBottomSheetState(bottomSheetState === 'collapsed' ? 'half' : 'collapsed')}
-        className="absolute bottom-0 left-0 right-0 z-40 flex flex-col items-center gap-2 bg-card border-t border-border px-4 py-3 rounded-t-2xl max-w-lg mx-auto"
-      >
-        <div className="w-8 h-1 bg-border-strong rounded-full" />
-        <span className="text-xs font-medium text-foreground-muted">
-          {stats.totalVisited} countries visited
-        </span>
-      </button>
-
-      {bottomSheetState !== 'collapsed' && (
-        <div className="absolute bottom-0 left-0 right-0 z-50 bg-card border-t border-border rounded-t-2xl max-h-96 overflow-y-auto">
-          <div className="p-4">
-            {statsContent}
-          </div>
-        </div>
-      )}
+    <div className="flex flex-col h-full">
+      <div className="relative h-[50vh] min-h-[300px]">
+        <ErrorBoundary
+          fallbackTitle="The map couldn't be displayed"
+          fallbackDescription="Try reloading the page. Your travel data is unaffected."
+        >
+          <WorldMap className="absolute inset-0" />
+        </ErrorBoundary>
+      </div>
+      <div className="overflow-y-auto bg-background">{sidebar}</div>
     </div>
   );
 }

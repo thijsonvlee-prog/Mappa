@@ -1,32 +1,42 @@
 :root {
+  /* Backgrounds — Warm ivory base */
   --color-background: #FAF8F3;
   --color-background-secondary: #F2EDE4;
   --color-card: #FFFFFF;
   --color-card-hover: #FAF8F3;
 
+  /* Text — Deep ink */
   --color-foreground: #1C2331;
   --color-foreground-secondary: #4E5564;
   --color-foreground-muted: #8B8E96;
 
+  /* Borders — Warm sand */
   --color-border: #E5DFD5;
   --color-border-strong: #D4CCC0;
 
+  /* Primary — Atlas Navy */
   --color-primary: #1B3A5C;
   --color-primary-hover: #264E7A;
   --color-primary-foreground: #FFFFFF;
   --color-primary-light: #EDF2F7;
 
+  /* Land Status — Visited: Forest Green */
   --color-visited: #2D6A4F;
   --color-visited-hover: #40916C;
   --color-visited-light: #EEF5F1;
   --color-visited-foreground: #1B4332;
+
+  /* Land Status — Planned: Terracotta */
   --color-planned: #C17B3A;
   --color-planned-hover: #D49050;
   --color-planned-light: #FDF3EC;
   --color-planned-foreground: #8B4E2E;
+
+  /* Land Status — Not Visited: Sand Gray */
   --color-not-visited: #D5D0C8;
   --color-not-visited-foreground: #8A857E;
 
+  /* Destructive & Success */
   --color-destructive: #C53030;
   --color-destructive-hover: #A52828;
   --color-destructive-foreground: #FFFFFF;
@@ -34,11 +44,13 @@
   --color-success-foreground: #FFFFFF;
   --color-warning: #C17B3A;
 
+  /* Map-specific */
   --color-map-water: #D8E6EE;
   --color-map-stroke: #B8C4CC;
   --color-map-hover: #C5CED6;
   --color-map-graticule: #E8E2D8;
 
+  /* Focus & Overlay */
   --color-ring: #1B3A5C;
   --color-overlay: rgba(28, 35, 49, 0.6);
 
@@ -57,45 +69,58 @@
 }
 
 [data-theme='dark'] {
+  /* Night Atlas — Deep navy base */
   --color-background: #141A24;
   --color-background-secondary: #1C2330;
   --color-card: #202838;
   --color-card-hover: #283040;
 
+  /* Text — Light cream */
   --color-foreground: #E8E4DC;
   --color-foreground-secondary: #9BA3B0;
   --color-foreground-muted: #6B7280;
 
+  /* Borders — Dark slate */
   --color-border: #2E3544;
   --color-border-strong: #3D4556;
 
+  /* Primary — Light Cyan */
   --color-primary: #5BA3C9;
   --color-primary-hover: #7BBAD6;
   --color-primary-foreground: #0D1B2A;
   --color-primary-light: #172A3A;
 
+  /* Land Status — Visited: Bright Green */
   --color-visited: #40916C;
   --color-visited-hover: #52B788;
   --color-visited-light: #0D2B1E;
   --color-visited-foreground: #6BCB96;
+
+  /* Land Status — Planned: Warm Amber */
   --color-planned: #D49050;
   --color-planned-hover: #E0A468;
   --color-planned-light: #2D1F0E;
   --color-planned-foreground: #E8B47A;
+
+  /* Land Status — Not Visited: Dark Gray */
   --color-not-visited: #2E3440;
   --color-not-visited-foreground: #8B8E96;
 
+  /* Destructive & Success */
   --color-destructive: #E53E3E;
   --color-destructive-hover: #DC2626;
   --color-destructive-foreground: #FFFFFF;
   --color-success: #40916C;
   --color-success-foreground: #FFFFFF;
+  --color-warning: #D49050;
 
+  /* Map-specific */
   --color-map-water: #111820;
   --color-map-stroke: #2E3A4A;
   --color-map-hover: #2D3748;
   --color-map-graticule: #1E2636;
 
+  /* Focus & Overlay */
   --color-ring: #5BA3C9;
   --color-overlay: rgba(0, 0, 0, 0.75);
 
