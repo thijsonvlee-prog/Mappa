@@ -76,7 +76,7 @@ export function CountryQuickPanel({ countryCode, position, onClose }: CountryQui
       <div className="flex items-center gap-2 mb-3">
         <CountryFlag flag={country.flag} size="md" />
         <div className="min-w-0 flex-1">
-          <h3 className="text-sm font-semibold text-foreground truncate">
+          <h3 data-testid="quick-panel-country-name" className="text-sm font-semibold text-foreground truncate">
             {country.name}
           </h3>
           <p className="text-xs text-foreground-muted">{country.continent}</p>

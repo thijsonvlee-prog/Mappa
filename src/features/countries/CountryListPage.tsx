@@ -6,7 +6,6 @@ import { CountryFilters } from './CountryFilters';
 import { CountrySortSelect } from './CountrySortSelect';
 import { CountryGrid } from './CountryGrid';
 import { CountryListView } from './CountryListView';
-import { CountryDetailSheet } from './CountryDetailSheet';
 import { cn } from '@/lib/utils';
 
 export function CountryListPage() {
@@ -77,8 +76,6 @@ export function CountryListPage() {
           <CountryListView countries={filteredCountries} />
         )}
       </div>
-
-      <CountryDetailSheet />
     </div>
   );
 }

@@ -202,13 +202,18 @@ export const numericToAlpha2: Record<string, string> = {
   '158': 'TW',  // Taiwan
 };
 
-export function resolveIsoCode(geoProperties: Record<string, unknown>): string | null {
-  const numericId = String(geoProperties.id ?? '');
+interface TopoJsonGeography {
+  id?: string | number;
+  properties?: Record<string, unknown>;
+}
+
+export function resolveIsoCode(geo: TopoJsonGeography): string | null {
+  const numericId = String(geo.id ?? '');
   const alpha2 = numericToAlpha2[numericId];
   if (alpha2) return alpha2;
 
   // Fallback: try name-based matching
-  const name = String(geoProperties.name ?? '');
+  const name = String(geo.properties?.name ?? '');
   const nameMap: Record<string, string> = {
     'Kosovo': 'XK',
     'N. Cyprus': 'CY',

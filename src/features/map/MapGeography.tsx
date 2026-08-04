@@ -7,7 +7,7 @@ interface MapGeographyProps {
   geography: any;
   countryCode: string;
   onHover: (code: string | null, geo: any, event: React.MouseEvent) => void;
-  onClick: (code: string, geo: any) => void;
+  onClick: (code: string, geo: any, event: React.MouseEvent) => void;
 }
 
 export const MapGeography = React.memo(function MapGeography({
@@ -39,9 +39,12 @@ export const MapGeography = React.memo(function MapGeography({
     [geography, onHover],
   );
 
-  const handleClick = useCallback(() => {
-    onClick(countryCode, geography);
-  }, [countryCode, geography, onClick]);
+  const handleClick = useCallback(
+    (event: React.MouseEvent) => {
+      onClick(countryCode, geography, event);
+    },
+    [countryCode, geography, onClick],
+  );
 
   return (
     <Geography

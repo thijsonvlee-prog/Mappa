@@ -56,16 +56,10 @@ export function WorldMap({ className }: WorldMapProps) {
     [],
   );
 
-  const handleClick = useCallback((code: string, geo: any) => {
-    const bounds = (geo as any).rsmKey
-      ? document.querySelector(`[data-rsm-key="${(geo as any).rsmKey}"]`)?.getBoundingClientRect()
-      : undefined;
-
+  const handleClick = useCallback((code: string, _geo: any, event: React.MouseEvent) => {
     setClick({
       code,
-      position: bounds
-        ? { x: bounds.left + bounds.width / 2, y: bounds.top + bounds.height / 2 }
-        : { x: window.innerWidth / 2, y: window.innerHeight / 2 },
+      position: { x: event.clientX, y: event.clientY },
     });
   }, []);
 
@@ -88,7 +82,7 @@ export function WorldMap({ className }: WorldMapProps) {
           <Geographies geography={worldData as any}>
             {({ geographies }: { geographies: any[] }) =>
               geographies.map((geo) => {
-                const isoCode = resolveIsoCode(geo.properties);
+                const isoCode = resolveIsoCode(geo);
                 if (!isoCode) return null;
                 return (
                   <MapGeography

@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Globe, MapPin, Map, Building2 } from 'lucide-react';
 import { WorldMap } from './WorldMap';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useCountryStore } from '@/stores/country-store';
 import { countryMap, TOTAL_COUNTRIES } from '@/data/countries-lookup';
 import { computeStats } from '@/lib/stats-utils';
@@ -109,7 +110,12 @@ export function MapPage() {
     return (
       <div className="flex h-full">
         <div className="flex-1 relative">
-          <WorldMap className="absolute inset-0" />
+          <ErrorBoundary
+            fallbackTitle="The map couldn't be displayed"
+            fallbackDescription="Try reloading the page. Your travel data is unaffected."
+          >
+            <WorldMap className="absolute inset-0" />
+          </ErrorBoundary>
         </div>
         <aside className="w-80 border-l border-border overflow-y-auto bg-background">
           {sidebar}
@@ -121,7 +127,12 @@ export function MapPage() {
   return (
     <div className="flex flex-col h-full">
       <div className="relative h-[50vh] min-h-[300px]">
-        <WorldMap className="absolute inset-0" />
+        <ErrorBoundary
+          fallbackTitle="The map couldn't be displayed"
+          fallbackDescription="Try reloading the page. Your travel data is unaffected."
+        >
+          <WorldMap className="absolute inset-0" />
+        </ErrorBoundary>
       </div>
       <div className="overflow-y-auto bg-background">{sidebar}</div>
     </div>
