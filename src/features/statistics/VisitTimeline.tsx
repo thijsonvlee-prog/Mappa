@@ -22,7 +22,7 @@ export function VisitTimeline() {
     if (visited.length === 0) return [];
 
     return visited.map((v, i) => ({
-      date: new Date(v.createdAt).toLocaleDateString('en-US', {
+      date: new Date(v.createdAt).toLocaleDateString('nl-NL', {
         month: 'short',
         year: 'numeric',
       }),
@@ -34,12 +34,12 @@ export function VisitTimeline() {
     return (
       <Card>
         <CardHeader>
-          <h3 className="text-lg font-semibold text-foreground">Visit Timeline</h3>
+          <h3 className="text-lg font-semibold text-foreground">Reistijdlijn</h3>
         </CardHeader>
         <CardContent>
           <div className="flex h-[200px] items-center justify-center">
             <p className="text-sm text-foreground-muted">
-              No visited countries yet. Start marking countries as visited to see your timeline.
+              Geen landen bezocht. Markeer landen als bezocht om je tijdlijn te zien.
             </p>
           </div>
         </CardContent>
@@ -50,7 +50,7 @@ export function VisitTimeline() {
   return (
     <Card>
       <CardHeader>
-        <h3 className="text-lg font-semibold text-foreground">Visit Timeline</h3>
+        <h3 className="text-lg font-semibold text-foreground">Reistijdlijn</h3>
       </CardHeader>
       <CardContent>
         <div className="h-[300px] w-full">
@@ -61,8 +61,8 @@ export function VisitTimeline() {
             >
               <defs>
                 <linearGradient id="visitGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="var(--color-primary)" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="var(--color-primary)" stopOpacity={0} />
+                  <stop offset="5%" stopColor="var(--color-visited)" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="var(--color-visited)" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid
@@ -88,12 +88,12 @@ export function VisitTimeline() {
                   borderRadius: 'var(--radius-md)',
                   color: 'var(--color-foreground)',
                 }}
-                formatter={((value: number) => [value, 'Countries']) as any}
+                formatter={((value: number) => [value, 'Landen']) as any}
               />
               <Area
                 type="monotone"
                 dataKey="count"
-                stroke="var(--color-primary)"
+                stroke="var(--color-visited)"
                 strokeWidth={2}
                 fill="url(#visitGradient)"
               />

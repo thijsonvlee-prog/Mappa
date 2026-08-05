@@ -23,26 +23,16 @@ export function BottomNav() {
               end={item.to === '/'}
               className={({ isActive }) =>
                 cn(
-                  'flex flex-col items-center gap-1 py-3 px-2 text-xs font-medium transition-colors',
+                  'flex flex-col items-center gap-1 px-3 py-3 text-xs font-medium transition-colors',
+                  'rounded-[var(--radius-lg)]',
                   isActive
-                    ? 'text-primary'
+                    ? 'text-primary bg-primary-light'
                     : 'text-foreground-muted hover:text-foreground',
                 )
               }
             >
-              {({ isActive }) => (
-                <>
-                  <div
-                    className={cn(
-                      'rounded-lg p-1.5 transition-colors',
-                      isActive ? 'bg-primary-light' : 'bg-transparent',
-                    )}
-                  >
-                    <item.icon className="h-5 w-5" />
-                  </div>
-                  <span className="hidden sm:inline">{item.label}</span>
-                </>
-              )}
+              <item.icon className="h-5 w-5" />
+              <span>{item.label}</span>
             </NavLink>
           </li>
         ))}

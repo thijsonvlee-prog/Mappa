@@ -4,6 +4,7 @@ import { CountryFlag } from '@/components/country/CountryFlag';
 import { StatusBadge } from '@/components/country/StatusBadge';
 import { RatingStars } from '@/components/country/RatingStars';
 import { cn } from '@/lib/utils';
+import { continentLabels } from '@/lib/labels';
 import type { Country } from '@/types';
 
 interface CountryCardProps {
@@ -34,7 +35,7 @@ export function CountryCard({ country }: CountryCardProps) {
           <h3 className="text-sm font-semibold text-foreground truncate">
             {country.name}
           </h3>
-          <p className="text-xs text-foreground-muted">{country.continent}</p>
+          <p className="text-xs text-foreground-muted">{continentLabels[country.continent]}</p>
         </div>
       </div>
       <div className="flex items-center gap-2 w-full">

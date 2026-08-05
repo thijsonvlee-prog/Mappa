@@ -1,5 +1,6 @@
-import { Globe, TrendingUp, Map, Building } from 'lucide-react';
+import { Globe, MapPin, Building2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/Card';
+import { CircularProgress } from '@/components/ui/CircularProgress';
 import { formatPercentage } from '@/lib/utils';
 import { useStatistics } from './hooks/useStatistics';
 
@@ -30,27 +31,47 @@ export function OverviewCards() {
   const stats = useStatistics();
 
   return (
-    <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-      <StatCard
-        icon={<Globe className="h-6 w-6" />}
-        label="Countries Visited"
-        value={stats.totalVisited}
-      />
-      <StatCard
-        icon={<TrendingUp className="h-6 w-6" />}
-        label="World Coverage"
-        value={formatPercentage(stats.percentageOfWorld)}
-      />
-      <StatCard
-        icon={<Map className="h-6 w-6" />}
-        label="Continents"
-        value={`${stats.continentsReached} of ${stats.totalContinents}`}
-      />
-      <StatCard
-        icon={<Building className="h-6 w-6" />}
-        label="Cities Visited"
-        value={stats.totalCities}
-      />
+    <div className="space-y-8">
+      {/* Hero section with circular progress */}
+      <div className="flex flex-col items-center justify-center gap-4 p-8 rounded-[var(--radius-xl)] bg-card border border-border">
+        <div className="relative w-32 h-32 flex items-center justify-center">
+          <CircularProgress
+            value={Math.min(stats.totalVisited, 195)}
+            max={195}
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <div className="text-4xl font-bold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>
+              {stats.totalVisited}
+            </div>
+            <div className="text-xs text-foreground-muted">landen</div>
+          </div>
+        </div>
+        <div className="text-center">
+          <p className="text-lg text-foreground-muted">
+            {formatPercentage(stats.percentageOfWorld)} van de wereld
+          </p>
+        </div>
+      </div>
+
+      {/* Quick stat cards */}
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+        <StatCard
+          icon={<MapPin className="h-6 w-6" />}
+          label="Continenten"
+          value={`${stats.continentsReached}/${stats.totalContinents}`}
+        />
+        <StatCard
+          icon={<Building2 className="h-6 w-6" />}
+          label="Steden"
+          value={stats.totalCities}
+        />
+        <StatCard
+          icon={<Globe className="h-6 w-6" />}
+          label="Landen/jaar"
+          value={Math.round(stats.totalVisited / (stats.recentlyAdded.length || 1))}
+          className="hidden lg:block"
+        />
+      </div>
     </div>
   );
 }

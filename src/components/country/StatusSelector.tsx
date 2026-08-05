@@ -1,11 +1,13 @@
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
+import { Check, MapPin, Circle } from 'lucide-react';
 import type { CountryStatus } from '@/types';
+import { statusLabels } from '@/lib/labels';
 import { cn } from '@/lib/utils';
 
-const options: { value: CountryStatus; label: string; dotColor: string }[] = [
-  { value: 'not_visited', label: 'Not Visited', dotColor: 'bg-not-visited' },
-  { value: 'planned', label: 'Planned', dotColor: 'bg-planned' },
-  { value: 'visited', label: 'Visited', dotColor: 'bg-visited' },
+const options: { value: CountryStatus; icon: typeof Check; dotColor: string }[] = [
+  { value: 'not_visited', icon: Circle, dotColor: 'bg-not-visited' },
+  { value: 'planned', icon: MapPin, dotColor: 'bg-planned' },
+  { value: 'visited', icon: Check, dotColor: 'bg-visited' },
 ];
 
 interface StatusSelectorProps {
@@ -37,7 +39,8 @@ export function StatusSelector({ value, onChange, className }: StatusSelectorPro
           )}
         >
           <span className={cn('size-2 rounded-full shrink-0', option.dotColor)} />
-          {option.label}
+          <option.icon className="size-3.5" />
+          {statusLabels[option.value]}
         </ToggleGroup.Item>
       ))}
     </ToggleGroup.Root>

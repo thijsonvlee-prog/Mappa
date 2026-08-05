@@ -11,15 +11,15 @@ import { cn } from '@/lib/utils';
 import type { ThemeMode, MapProjection } from '@/types';
 
 const themeOptions: { value: ThemeMode; label: string; icon: typeof Sun }[] = [
-  { value: 'light', label: 'Light', icon: Sun },
-  { value: 'dark', label: 'Dark', icon: Moon },
-  { value: 'system', label: 'System', icon: Monitor },
+  { value: 'light', label: 'Licht', icon: Sun },
+  { value: 'dark', label: 'Donker', icon: Moon },
+  { value: 'system', label: 'Systeem', icon: Monitor },
 ];
 
 const projectionOptions: { value: MapProjection; label: string }[] = [
-  { value: 'geoEqualEarth', label: 'Equal Earth' },
+  { value: 'geoEqualEarth', label: 'Gelijke Aarde' },
   { value: 'geoMercator', label: 'Mercator' },
-  { value: 'geoNaturalEarth1', label: 'Natural Earth' },
+  { value: 'geoNaturalEarth1', label: 'Natuurlijke Aarde' },
 ];
 
 export function AppearanceSection() {
@@ -30,15 +30,15 @@ export function AppearanceSection() {
   return (
     <section className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-foreground">Appearance</h2>
+        <h2 className="text-lg font-semibold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>Weergave</h2>
         <p className="text-sm text-foreground-muted">
-          Customize how Mappa looks and feels.
+          Pas aan hoe Mappa eruitziet en voelt.
         </p>
       </div>
 
       <div className="space-y-4">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">Theme</label>
+          <label className="text-sm font-medium text-foreground">Thema</label>
           <div className="flex gap-2">
             {themeOptions.map((opt) => (
               <button
@@ -63,7 +63,7 @@ export function AppearanceSection() {
 
         <div className="space-y-2">
           <label className="text-sm font-medium text-foreground">
-            Map Projection
+            Kaartprojectie
           </label>
           <Select
             value={mapProjection}

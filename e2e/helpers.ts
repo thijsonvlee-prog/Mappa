@@ -10,7 +10,7 @@ export async function resetAppState(page: Page): Promise<void> {
 }
 
 export async function skipOnboarding(page: Page): Promise<void> {
-  await page.getByRole('button', { name: 'Skip setup' }).click();
+  await page.getByRole('button', { name: 'Overslaan' }).click();
 }
 
 export async function clickOnMap(page: Page): Promise<void> {

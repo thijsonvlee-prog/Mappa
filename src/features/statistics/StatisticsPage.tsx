@@ -6,8 +6,10 @@ import { TagDistribution } from './TagDistribution';
 
 export function StatisticsPage() {
   return (
-    <div className="mx-auto max-w-6xl space-y-6 p-6">
-      <h1 className="text-2xl font-bold text-foreground">Statistics</h1>
+    <div className="mx-auto max-w-6xl space-y-8 p-6">
+      <h1 className="text-3xl font-semibold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>
+        Je ontdekkingen
+      </h1>
 
       <OverviewCards />
 

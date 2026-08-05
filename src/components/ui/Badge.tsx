@@ -1,36 +1,26 @@
 import { forwardRef, type HTMLAttributes } from 'react';
-import { Check, MapPin, Circle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type BadgeVariant = 'default' | 'visited' | 'planned' | 'not_visited' | 'outline';
 
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: BadgeVariant;
-  showIcon?: boolean;
 }
 
 const variantStyles: Record<BadgeVariant, string> = {
   default: 'bg-primary-light text-primary',
   visited:
-    'bg-visited-light text-visited-foreground',
+    'bg-visited-light text-[var(--color-visited-foreground)]',
   planned:
-    'bg-planned-light text-planned-foreground',
+    'bg-planned-light text-[var(--color-planned-foreground)]',
   not_visited:
-    'bg-background-secondary text-foreground-muted',
+    'bg-not-visited/20 text-[var(--color-not-visited-foreground)]',
   outline:
     'bg-transparent text-foreground-secondary border border-border-strong',
 };
 
-const iconMap: Record<BadgeVariant, React.ReactNode | null> = {
-  default: null,
-  visited: <Check className="w-3 h-3" />,
-  planned: <MapPin className="w-3 h-3" />,
-  not_visited: <Circle className="w-3 h-3" />,
-  outline: null,
-};
-
 const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
-  ({ className, variant = 'default', showIcon = false, children, ...props }, ref) => (
+  ({ className, variant = 'default', ...props }, ref) => (
     <span
       ref={ref}
       className={cn(
@@ -40,10 +30,7 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
         className,
       )}
       {...props}
-    >
-      {showIcon && iconMap[variant]}
-      {children}
-    </span>
+    />
   ),
 );
 Badge.displayName = 'Badge';

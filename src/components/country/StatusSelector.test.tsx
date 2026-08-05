@@ -7,11 +7,11 @@ describe('StatusSelector', () => {
   it('marks the current value as active', () => {
     render(<StatusSelector value="planned" onChange={vi.fn()} />);
 
-    expect(screen.getByRole('radio', { name: 'Planned' })).toHaveAttribute(
+    expect(screen.getByRole('radio', { name: 'Gepland' })).toHaveAttribute(
       'data-state',
       'on',
     );
-    expect(screen.getByRole('radio', { name: 'Visited' })).toHaveAttribute(
+    expect(screen.getByRole('radio', { name: 'Bezocht' })).toHaveAttribute(
       'data-state',
       'off',
     );
@@ -22,7 +22,7 @@ describe('StatusSelector', () => {
     const onChange = vi.fn();
     render(<StatusSelector value="not_visited" onChange={onChange} />);
 
-    await user.click(screen.getByRole('radio', { name: 'Visited' }));
+    await user.click(screen.getByRole('radio', { name: 'Bezocht' }));
 
     expect(onChange).toHaveBeenCalledWith('visited');
   });
@@ -30,8 +30,8 @@ describe('StatusSelector', () => {
   it('renders all three status options', () => {
     render(<StatusSelector value="not_visited" onChange={vi.fn()} />);
 
-    expect(screen.getByRole('radio', { name: 'Not Visited' })).toBeInTheDocument();
-    expect(screen.getByRole('radio', { name: 'Planned' })).toBeInTheDocument();
-    expect(screen.getByRole('radio', { name: 'Visited' })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: 'Niet bezocht' })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: 'Gepland' })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: 'Bezocht' })).toBeInTheDocument();
   });
 });

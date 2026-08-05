@@ -59,16 +59,16 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Import Data</DialogTitle>
+          <DialogTitle>Gegevens importeren</DialogTitle>
           <DialogDescription>
-            Import travel data from a previously exported JSON file.
+            Importeer reisgegevens uit een eerder geëxporteerd JSON-bestand.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
           <div>
             <label className="text-sm font-medium text-foreground">
-              Select file
+              Bestand selecteren
             </label>
             <input
               ref={fileInputRef}
@@ -82,7 +82,7 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
           {validation && !validation.valid && (
             <div className="rounded-md border border-destructive bg-destructive/10 p-3">
               <p className="text-sm font-medium text-destructive">
-                Invalid file
+                Ongeldig bestand
               </p>
               <ul className="mt-1 list-inside list-disc text-sm text-destructive">
                 {validation.errors?.map((err, i) => (
@@ -96,18 +96,18 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
             <>
               <div className="rounded-md border border-border bg-background-secondary p-3">
                 <p className="text-sm font-medium text-foreground">
-                  File contents
+                  Bestandsinhoud
                 </p>
                 <ul className="mt-1 space-y-0.5 text-sm text-foreground-muted">
-                  <li>{validation.summary.countryVisits} countries</li>
+                  <li>{validation.summary.countryVisits} landen</li>
                   <li>{validation.summary.tags} tags</li>
-                  <li>{validation.summary.photos} photos</li>
+                  <li>{validation.summary.photos} foto's</li>
                 </ul>
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm font-medium text-foreground">
-                  Import mode
+                  Importmodus
                 </label>
                 <div className="flex gap-2">
                   <button
@@ -119,7 +119,7 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                         : 'border-border text-foreground-secondary hover:bg-background-secondary'
                     }`}
                   >
-                    Merge
+                    Samenvoegen
                   </button>
                   <button
                     type="button"
@@ -130,12 +130,12 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                         : 'border-border text-foreground-secondary hover:bg-background-secondary'
                     }`}
                   >
-                    Replace
+                    Vervangen
                   </button>
                 </div>
                 {mode === 'replace' && (
                   <p className="text-sm text-destructive">
-                    This will delete all existing data and replace it with the imported file.
+                    Dit verwijdert alle bestaande gegevens en vervangt ze door het geïmporteerde bestand.
                   </p>
                 )}
               </div>
@@ -145,14 +145,14 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
 
         <DialogFooter>
           <Button variant="secondary" onClick={() => handleClose(false)}>
-            Cancel
+            Annuleren
           </Button>
           <Button
             onClick={handleImport}
             disabled={!validation?.valid || importing}
           >
             <Upload className="h-4 w-4" />
-            {importing ? 'Importing...' : 'Import'}
+            {importing ? 'Bezig met importeren...' : 'Importeer'}
           </Button>
         </DialogFooter>
       </DialogContent>

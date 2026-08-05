@@ -16,10 +16,10 @@ describe('CountryFilters', () => {
     const user = userEvent.setup();
     render(<CountryFilters />);
 
-    await user.click(screen.getByRole('button', { name: 'Europe' }));
+    await user.click(screen.getByRole('button', { name: 'Europa' }));
     expect(useUIStore.getState().filters.continents).toEqual(['Europe']);
 
-    await user.click(screen.getByRole('button', { name: 'Europe' }));
+    await user.click(screen.getByRole('button', { name: 'Europa' }));
     expect(useUIStore.getState().filters.continents).toEqual([]);
   });
 
@@ -27,7 +27,7 @@ describe('CountryFilters', () => {
     const user = userEvent.setup();
     render(<CountryFilters />);
 
-    await user.click(screen.getByRole('button', { name: 'Visited' }));
+    await user.click(screen.getByRole('button', { name: 'Bezocht' }));
     expect(useUIStore.getState().filters.statuses).toEqual(['visited']);
   });
 
@@ -35,13 +35,13 @@ describe('CountryFilters', () => {
     const user = userEvent.setup();
     render(<CountryFilters />);
 
-    expect(screen.queryByRole('button', { name: 'Reset' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Wissen' })).not.toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: 'Planned' }));
-    expect(screen.getByRole('button', { name: 'Reset' })).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Gepland' }));
+    expect(screen.getByRole('button', { name: 'Wissen' })).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: 'Reset' }));
+    await user.click(screen.getByRole('button', { name: 'Wissen' }));
     expect(useUIStore.getState().filters).toEqual({ continents: [], statuses: [] });
-    expect(screen.queryByRole('button', { name: 'Reset' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Wissen' })).not.toBeInTheDocument();
   });
 });

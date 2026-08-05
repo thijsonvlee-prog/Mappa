@@ -8,7 +8,7 @@ test.describe('offline support', () => {
 
     await clickOnMap(page);
     const countryName = (await page.getByTestId('quick-panel-country-name').textContent())!.trim();
-    await page.getByRole('radio', { name: 'Visited', exact: true }).click();
+    await page.getByRole('radio', { name: 'Bezocht', exact: true }).click();
     await page.keyboard.press('Escape');
 
     await page
@@ -21,9 +21,9 @@ test.describe('offline support', () => {
 
     await expect(page.locator('.rsm-svg')).toBeVisible({ timeout: 10000 });
 
-    await page.getByRole('link', { name: 'Countries' }).click();
-    await page.getByPlaceholder('Search countries...').fill(countryName);
-    await expect(page.getByText('Visited', { exact: true }).first()).toBeVisible();
+    await page.getByRole('link', { name: 'Landen' }).click();
+    await page.getByPlaceholder('Zoek landen...').fill(countryName);
+    await expect(page.getByText('Bezocht', { exact: true }).first()).toBeVisible();
 
     await context.setOffline(false);
   });

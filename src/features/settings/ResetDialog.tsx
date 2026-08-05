@@ -39,16 +39,16 @@ export function ResetDialog({ open, onOpenChange }: ResetDialogProps) {
     <AlertDialog open={open} onOpenChange={handleOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Reset All Data</AlertDialogTitle>
+          <AlertDialogTitle>Alle gegevens resetten</AlertDialogTitle>
           <AlertDialogDescription>
-            This will permanently delete all your travel data including
-            countries, notes, photos, and tags. This action cannot be undone.
+            Dit verwijdert permanent al je reisgegevens, inclusief landen,
+            notities, foto's en tags. Deze actie kan niet ongedaan worden gemaakt.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <div className="py-4">
           <Input
-            label='Type "DELETE" to confirm'
+            label='Typ "DELETE" om te bevestigen'
             value={confirmation}
             onChange={(e) => setConfirmation(e.target.value)}
             placeholder="DELETE"
@@ -56,13 +56,13 @@ export function ResetDialog({ open, onOpenChange }: ResetDialogProps) {
         </div>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>Annuleren</AlertDialogCancel>
           <AlertDialogAction
             onClick={handleReset}
             disabled={confirmation !== 'DELETE'}
             className="bg-destructive text-destructive-foreground hover:bg-destructive-hover disabled:pointer-events-none disabled:opacity-50"
           >
-            Reset Everything
+            Alles resetten
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

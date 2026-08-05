@@ -1,24 +1,26 @@
+import { Check, MapPin, Circle } from 'lucide-react';
 import type { CountryStatus } from '@/types';
 import { Badge } from '@/components/ui/Badge';
+import { statusLabels } from '@/lib/labels';
 
-const statusConfig: Record<CountryStatus, { label: string; variant: 'visited' | 'planned' | 'not_visited' }> = {
-  visited: { label: 'Visited', variant: 'visited' },
-  planned: { label: 'Planned', variant: 'planned' },
-  not_visited: { label: 'Not Visited', variant: 'not_visited' },
+const statusConfig: Record<CountryStatus, { variant: 'visited' | 'planned' | 'not_visited'; icon: typeof Check }> = {
+  visited: { variant: 'visited', icon: Check },
+  planned: { variant: 'planned', icon: MapPin },
+  not_visited: { variant: 'not_visited', icon: Circle },
 };
 
 interface StatusBadgeProps {
   status: CountryStatus;
   className?: string;
-  showIcon?: boolean;
 }
 
-export function StatusBadge({ status, className, showIcon = false }: StatusBadgeProps) {
-  const { label, variant } = statusConfig[status];
+export function StatusBadge({ status, className }: StatusBadgeProps) {
+  const { variant, icon: Icon } = statusConfig[status];
 
   return (
-    <Badge variant={variant} className={className} showIcon={showIcon}>
-      {label}
+    <Badge variant={variant} className={className}>
+      <Icon className="size-3" />
+      {statusLabels[status]}
     </Badge>
   );
 }

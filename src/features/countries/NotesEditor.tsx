@@ -25,7 +25,7 @@ export function NotesEditor({ value, onChange }: NotesEditorProps) {
     <textarea
       value={text}
       onChange={(e) => setText(e.target.value)}
-      placeholder="Add notes about this country..."
+      placeholder="Schrijf een herinnering..."
       rows={4}
       className={cn(
         'flex w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground',

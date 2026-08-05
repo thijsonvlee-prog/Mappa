@@ -6,7 +6,9 @@ import { AboutSection } from './AboutSection';
 export function SettingsPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-10 p-6">
-      <h1 className="text-2xl font-bold text-foreground">Settings</h1>
+      <h1 className="text-3xl font-semibold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>
+        Instellingen
+      </h1>
 
       <AppearanceSection />
 

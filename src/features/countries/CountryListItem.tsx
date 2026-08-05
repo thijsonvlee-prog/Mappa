@@ -4,6 +4,7 @@ import { CountryFlag } from '@/components/country/CountryFlag';
 import { StatusBadge } from '@/components/country/StatusBadge';
 import { RatingStars } from '@/components/country/RatingStars';
 import { cn } from '@/lib/utils';
+import { continentLabels } from '@/lib/labels';
 import type { Country } from '@/types';
 
 interface CountryListItemProps {
@@ -32,7 +33,7 @@ export function CountryListItem({ country }: CountryListItemProps) {
         {country.name}
       </span>
       <span className="text-xs text-foreground-muted shrink-0 hidden sm:block">
-        {country.continent}
+        {continentLabels[country.continent]}
       </span>
       <StatusBadge status={status} className="shrink-0" />
       {visit?.rating !== undefined && visit.rating > 0 && (

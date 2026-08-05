@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap');
+
 @import 'tailwindcss';
 @import './tokens.css';
 
 @theme {
+  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   --color-background: var(--color-background);
   --color-background-secondary: var(--color-background-secondary);
   --color-card: var(--color-card);
@@ -45,9 +49,6 @@
   --radius-lg: var(--radius-lg);
   --radius-xl: var(--radius-xl);
   --radius-full: var(--radius-full);
-  --font-display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 }
 
 * {
@@ -120,6 +121,23 @@ body {
 @keyframes slideOutBottom {
   from { translate: 0 0; }
   to { translate: 0 100%; }
+}
+
+@keyframes countryMarkPulse {
+  0% { scale: 1; }
+  50% { scale: 1.02; }
+  100% { scale: 1; }
+}
+
+@keyframes countryMarkStroke {
+  from {
+    stroke-width: 0.5;
+    stroke: var(--color-map-stroke);
+  }
+  to {
+    stroke-width: 1.5;
+    stroke: var(--color-primary);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

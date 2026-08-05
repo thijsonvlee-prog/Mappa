@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { Globe, MapPin, Map, Building2 } from 'lucide-react';
+import { useMemo } from 'react';
+import { Globe, MapPin, Building2 } from 'lucide-react';
 import { WorldMap } from './WorldMap';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useCountryStore } from '@/stores/country-store';
@@ -40,38 +40,38 @@ function StatCard({
   );
 }
 
-export function MapPage() {
+function StatsPanel() {
   const visits = useCountryStore((s) => s.visits);
-  const isDesktop = useIsDesktop();
-  const [bottomSheetState, setBottomSheetState] = useState<'collapsed' | 'half' | 'full'>('collapsed');
 
   const stats = useMemo(
     () => computeStats(visits, countryMap, TOTAL_COUNTRIES),
     [visits],
   );
 
-  const statsContent = (
+  return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-lg font-semibold text-foreground">Travel Stats</h2>
+      <h2 className="text-lg font-semibold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>
+        Je ontdekkingen
+      </h2>
 
       <div className="grid grid-cols-2 gap-3">
         <StatCard
-          label="Countries"
+          label="Landen"
           value={stats.totalVisited}
           icon={<Globe className="size-5" />}
         />
         <StatCard
-          label="Of World"
+          label="Van wereld"
           value={formatPercentage(stats.percentageOfWorld)}
-          icon={<Map className="size-5" />}
-        />
-        <StatCard
-          label="Continents"
-          value={`${stats.continentsReached}/${stats.totalContinents}`}
           icon={<MapPin className="size-5" />}
         />
         <StatCard
-          label="Cities"
+          label="Continenten"
+          value={`${stats.continentsReached}/${stats.totalContinents}`}
+          icon={<Globe className="size-5" />}
+        />
+        <StatCard
+          label="Steden"
           value={stats.totalCities}
           icon={<Building2 className="size-5" />}
         />
@@ -79,7 +79,7 @@ export function MapPage() {
 
       {stats.recentlyAdded.length > 0 && (
         <div className="mt-2">
-          <h3 className="text-sm font-medium text-foreground mb-2">Recently Visited</h3>
+          <h3 className="text-sm font-medium text-foreground mb-2">Recent bezocht</h3>
           <div className="flex flex-col gap-1">
             {stats.recentlyAdded.map((visit) => {
               const country = getCountry(visit.countryCode);
@@ -106,10 +106,15 @@ export function MapPage() {
       )}
     </div>
   );
+}
+
+export function MapPage() {
+  const isDesktop = useIsDesktop();
 
   if (isDesktop) {
     return (
-      <div className="flex h-full">
+      <div className="flex h-full overflow-hidden">
+        {/* Map fills flex-1 */}
         <div className="flex-1 relative">
           <ErrorBoundary
             fallbackTitle="The map couldn't be displayed"
@@ -118,15 +123,18 @@ export function MapPage() {
             <WorldMap className="absolute inset-0" />
           </ErrorBoundary>
         </div>
-        <aside className="w-80 border-l border-border overflow-y-auto bg-background p-4">
-          {statsContent}
-        </aside>
+        {/* Floating stats panel (300px, semi-transparent) */}
+        <div className="absolute bottom-6 right-6 w-80 bg-card/90 backdrop-blur-sm border border-border rounded-[var(--radius-xl)] p-6 shadow-lg max-h-[70vh] overflow-y-auto z-10">
+          <StatsPanel />
+        </div>
       </div>
     );
   }
 
+  // Mobile: Full-screen map with bottom sheet stats
   return (
-    <div className="relative h-full">
+    <div className="flex flex-col h-full relative">
+      {/* Map fills entire screen */}
       <ErrorBoundary
         fallbackTitle="The map couldn't be displayed"
         fallbackDescription="Try reloading the page. Your travel data is unaffected."
@@ -134,23 +142,10 @@ export function MapPage() {
         <WorldMap className="absolute inset-0" />
       </ErrorBoundary>
 
-      <button
-        onClick={() => setBottomSheetState(bottomSheetState === 'collapsed' ? 'half' : 'collapsed')}
-        className="absolute bottom-0 left-0 right-0 z-40 flex flex-col items-center gap-2 bg-card border-t border-border px-4 py-3 rounded-t-2xl max-w-lg mx-auto"
-      >
-        <div className="w-8 h-1 bg-border-strong rounded-full" />
-        <span className="text-xs font-medium text-foreground-muted">
-          {stats.totalVisited} countries visited
-        </span>
-      </button>
-
-      {bottomSheetState !== 'collapsed' && (
-        <div className="absolute bottom-0 left-0 right-0 z-50 bg-card border-t border-border rounded-t-2xl max-h-96 overflow-y-auto">
-          <div className="p-4">
-            {statsContent}
-          </div>
-        </div>
-      )}
+      {/* Bottom sheet stats (translucent overlay at bottom) */}
+      <div className="absolute bottom-0 left-0 right-0 rounded-t-[var(--radius-xl)] bg-card/95 backdrop-blur-sm border-t border-border p-6 shadow-lg max-h-[50vh] overflow-y-auto">
+        <StatsPanel />
+      </div>
     </div>
   );
 }

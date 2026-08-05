@@ -6,6 +6,7 @@ import { useUIStore } from '@/stores/ui-store';
 import { CountryFlag } from '@/components/country/CountryFlag';
 import { StatusSelector } from '@/components/country/StatusSelector';
 import { cn } from '@/lib/utils';
+import { continentLabels } from '@/lib/labels';
 import type { CountryStatus } from '@/types';
 
 interface CountryQuickPanelProps {
@@ -76,10 +77,14 @@ export function CountryQuickPanel({ countryCode, position, onClose }: CountryQui
       <div className="flex items-center gap-2 mb-3">
         <CountryFlag flag={country.flag} size="md" />
         <div className="min-w-0 flex-1">
-          <h3 data-testid="quick-panel-country-name" className="text-sm font-semibold text-foreground truncate">
+          <h3
+            data-testid="quick-panel-country-name"
+            className="text-sm font-semibold text-foreground truncate"
+            style={{ fontFamily: 'var(--font-serif)' }}
+          >
             {country.name}
           </h3>
-          <p className="text-xs text-foreground-muted">{country.continent}</p>
+          <p className="text-xs text-foreground-muted">{continentLabels[country.continent]}</p>
         </div>
       </div>
 
@@ -100,7 +105,7 @@ export function CountryQuickPanel({ countryCode, position, onClose }: CountryQui
         )}
       >
         <ExternalLink className="size-3.5" />
-        View Details
+        Bekijk details
       </button>
     </div>
   );

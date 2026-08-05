@@ -37,9 +37,10 @@ const hoverFills = {
   dark: {
     visited: '#52B788',
     planned: '#E0A468',
-    not_visited: '#2D3748',
+    not_visited: '#3D4556',
   },
 } as const;
+
 
 export function useCountryColor() {
   const theme = useSyncExternalStore(subscribeToTheme, getTheme, () => 'light' as const);

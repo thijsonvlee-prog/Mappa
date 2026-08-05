@@ -37,7 +37,7 @@ export function CountryOverviewTab({ countryCode, visit }: CountryOverviewTabPro
   if (!visit) {
     return (
       <div className="py-8 text-center text-sm text-foreground-muted">
-        Set a status to start tracking this country.
+        Stel een status in om dit land bij te houden.
       </div>
     );
   }
@@ -45,17 +45,17 @@ export function CountryOverviewTab({ countryCode, visit }: CountryOverviewTabPro
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium text-foreground">Rating</label>
+        <label className="text-sm font-medium text-foreground">Beoordeling</label>
         <RatingStars value={visit.rating ?? 0} onChange={handleRatingChange} />
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium text-foreground">Notes</label>
+        <label className="text-sm font-medium text-foreground">Notities</label>
         <NotesEditor value={visit.notes ?? ''} onChange={handleNotesChange} />
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium text-foreground">Cities</label>
+        <label className="text-sm font-medium text-foreground">Steden</label>
         <CitiesEditor cities={visit.cities} onChange={handleCitiesChange} />
       </div>
 

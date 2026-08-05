@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { X } from 'lucide-react';
+import { X, Compass } from 'lucide-react';
 import { useUIStore } from '@/stores/ui-store';
 import { useCountryStore } from '@/stores/country-store';
 import { getCountry } from '@/data/countries-lookup';
@@ -10,14 +10,16 @@ import { CountryOverviewTab } from './CountryOverviewTab';
 import { CountryVisitsTab } from './CountryVisitsTab';
 import { CountryPhotosTab } from './CountryPhotosTab';
 import { cn } from '@/lib/utils';
+import { continentLabels } from '@/lib/labels';
+import { formatCoordinates } from '@/lib/format-coordinates';
 import type { CountryStatus } from '@/types';
 
 type TabId = 'overview' | 'visits' | 'photos';
 
 const tabs: { id: TabId; label: string }[] = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'visits', label: 'Visits' },
-  { id: 'photos', label: 'Photos' },
+  { id: 'overview', label: 'Overzicht' },
+  { id: 'visits', label: 'Bezoeken' },
+  { id: 'photos', label: "Foto's" },
 ];
 
 export function CountryDetailSheet() {
@@ -58,30 +60,48 @@ export function CountryDetailSheet() {
           )}
         >
           <DialogPrimitive.Title className="sr-only">
-            {country?.name ?? 'Country'} Details
+            {country?.name ?? 'Land'} details
           </DialogPrimitive.Title>
 
-          <div className="flex items-center justify-between p-4 border-b border-border">
+          {/* Decorative page divider */}
+          <div className="flex items-center gap-2 px-4 pt-3 text-foreground-muted/40">
+            <div className="h-px flex-1 bg-border" />
+            <Compass className="size-3" />
+            <div className="h-px flex-1 bg-border" />
+          </div>
+
+          <div className="flex items-center justify-between p-4 pb-3">
             {country && (
               <div className="flex items-center gap-3 min-w-0">
                 <CountryFlag flag={country.flag} size="lg" />
                 <div className="min-w-0">
-                  <h2 className="text-lg font-semibold text-foreground truncate">
+                  <h2
+                    className="text-xl font-semibold text-foreground truncate"
+                    style={{ fontFamily: 'var(--font-serif)' }}
+                  >
                     {country.name}
                   </h2>
-                  <p className="text-sm text-foreground-muted">{country.continent}</p>
+                  <p className="text-xs font-medium uppercase tracking-wide text-foreground-muted">
+                    {continentLabels[country.continent]}
+                  </p>
+                  <p
+                    className="text-[10px] text-foreground-muted/70 mt-0.5"
+                    style={{ fontFamily: 'var(--font-mono)' }}
+                  >
+                    {country.capital} · {formatCoordinates(country.coordinates)}
+                  </p>
                 </div>
               </div>
             )}
             <DialogPrimitive.Close
               className={cn(
-                'rounded-sm p-1.5 text-foreground-muted opacity-70 hover:opacity-100',
+                'rounded-sm p-1.5 text-foreground-muted opacity-70 hover:opacity-100 shrink-0',
                 'transition-opacity cursor-pointer',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
               )}
             >
               <X className="size-5" />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">Sluiten</span>
             </DialogPrimitive.Close>
           </div>
 

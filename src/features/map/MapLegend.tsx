@@ -1,9 +1,11 @@
+import { Check, MapPin, Circle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { statusLabels } from '@/lib/labels';
 
 const legendItems = [
-  { label: 'Visited', colorClass: 'bg-visited' },
-  { label: 'Planned', colorClass: 'bg-planned' },
-  { label: 'Not Visited', colorClass: 'bg-not-visited' },
+  { status: 'visited', colorClass: 'bg-visited', icon: Check },
+  { status: 'planned', colorClass: 'bg-planned', icon: MapPin },
+  { status: 'not_visited', colorClass: 'bg-not-visited', icon: Circle },
 ] as const;
 
 interface MapLegendProps {
@@ -23,9 +25,10 @@ export function MapLegend({ className }: MapLegendProps) {
       )}
     >
       {legendItems.map((item) => (
-        <div key={item.label} className="flex items-center gap-1.5">
+        <div key={item.status} className="flex items-center gap-1.5">
           <span className={cn('size-2.5 rounded-full shrink-0', item.colorClass)} />
-          <span>{item.label}</span>
+          <item.icon className="size-3 shrink-0" />
+          <span>{statusLabels[item.status]}</span>
         </div>
       ))}
     </div>

@@ -99,12 +99,13 @@ export function WorldMap({ className }: WorldMapProps) {
               })
             }
           </Geographies>
+          <MapGraticule zoom={position.zoom} />
         </ZoomableGroup>
       </ComposableMap>
 
-      <MapGraticule zoom={position.zoom} />
       <MapCompass />
       <MapScale zoom={position.zoom} />
+
       <MapControls onZoomIn={zoomIn} onZoomOut={zoomOut} onReset={resetView} />
       <MapLegend />
 

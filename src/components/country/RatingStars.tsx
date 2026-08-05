@@ -34,11 +34,14 @@ export function RatingStars({ value = 0, onChange, readonly = false, className }
           >
             <Star
               className={cn(
-                'size-5',
+                'size-5 transition-colors',
                 filled
-                  ? 'fill-planned text-planned'
-                  : 'fill-transparent text-foreground-muted',
+                  ? 'text-[var(--color-planned)]'
+                  : 'text-foreground-muted',
               )}
+              style={{
+                fill: filled ? 'var(--color-planned)' : 'transparent',
+              }}
             />
           </button>
         );

@@ -32,7 +32,7 @@ export function AboutSection() {
   return (
     <section className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-foreground">About</h2>
+        <h2 className="text-lg font-semibold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>Over Mappa</h2>
         <p className="text-sm text-foreground-muted">
           Mappa v{version}
         </p>
@@ -43,12 +43,11 @@ export function AboutSection() {
           <Shield className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
           <div>
             <p className="text-sm font-medium text-foreground">
-              Privacy First
+              Privacy Eerst
             </p>
             <p className="text-sm text-foreground-muted">
-              All data is stored locally in your browser. No accounts, no
-              tracking, no external connections. Your travel data never leaves
-              your device.
+              Alle gegevens worden lokaal in je browser opgeslagen. Geen accounts, geen
+              tracking, geen externe verbindingen. Je reisgegevens verlaten nooit je apparaat.
             </p>
           </div>
         </div>
@@ -56,10 +55,10 @@ export function AboutSection() {
         {storageInfo && (
           <div className="rounded-lg border border-border p-4">
             <p className="text-sm font-medium text-foreground">
-              Storage Usage
+              Opslaggebruik
             </p>
             <p className="text-sm text-foreground-muted">
-              {storageInfo.used} used of {storageInfo.quota} available
+              {storageInfo.used} gebruikt van {storageInfo.quota} beschikbaar
             </p>
           </div>
         )}

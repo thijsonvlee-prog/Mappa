@@ -1,37 +1,79 @@
-interface MapScaleProps {
-  zoom: number;
-}
+// Adaptive map scale bar in bottom-left corner
 
-export function MapScale({ zoom }: MapScaleProps) {
-  const pixelsPerDegree = 147 * Math.pow(2, zoom) / 360;
-  const degreesPerUnit = 1 / pixelsPerDegree;
-  const kmPerDegree = 111.32;
-
-  let targetKm = 1000;
-  let unitCount = Math.round((targetKm / kmPerDegree) / degreesPerUnit);
-
-  if (unitCount < 5) {
-    targetKm = 100;
-    unitCount = Math.round((targetKm / kmPerDegree) / degreesPerUnit);
-  } else if (unitCount > 500) {
-    targetKm = 5000;
-    unitCount = Math.round((targetKm / kmPerDegree) / degreesPerUnit);
-  }
-
-  const width = unitCount * pixelsPerDegree;
-  const label = targetKm >= 1000 ? `${(targetKm / 1000).toFixed(0)}k` : `${targetKm}`;
+export function MapScale({ zoom }: { zoom: number }) {
+  // Calculate scale distance based on zoom level
+  // At zoom 1: ~5000km, at zoom 2: ~2500km, etc.
+  const scaleKm = Math.round(5000 / zoom);
+  const scalePixels = Math.min(80, Math.max(30, scaleKm / 100));
 
   return (
-    <div className="absolute bottom-20 left-4 flex flex-col items-start gap-1 opacity-60 pointer-events-none">
-      <div style={{ display: 'flex', gap: '4px', alignItems: 'flex-start' }}>
-        <div style={{ width: `${width}px`, height: '1px', backgroundColor: 'var(--color-foreground-muted)' }} />
-      </div>
-      <span
-        className="text-xs font-mono"
-        style={{ color: 'var(--color-foreground-muted)' }}
+    <div
+      style={{
+        position: 'absolute',
+        bottom: '80px',
+        left: '20px',
+        pointerEvents: 'none',
+        opacity: 0.5,
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          gap: '4px',
+          fontSize: '10px',
+          color: 'var(--color-foreground-muted)',
+          fontFamily: 'var(--font-mono)',
+        }}
       >
-        {label} km
-      </span>
+        {/* Scale bar */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '2px',
+          }}
+        >
+          <div
+            style={{
+              width: scalePixels,
+              height: '2px',
+              backgroundColor: 'var(--color-foreground-muted)',
+              position: 'relative',
+            }}
+          >
+            {/* Left tick */}
+            <div
+              style={{
+                position: 'absolute',
+                left: '0',
+                top: '-4px',
+                width: '1px',
+                height: '10px',
+                backgroundColor: 'var(--color-foreground-muted)',
+              }}
+            />
+            {/* Right tick */}
+            <div
+              style={{
+                position: 'absolute',
+                right: '0',
+                top: '-4px',
+                width: '1px',
+                height: '10px',
+                backgroundColor: 'var(--color-foreground-muted)',
+              }}
+            />
+          </div>
+        </div>
+        {/* Distance label */}
+        <div style={{ fontSize: '9px' }}>
+          {scaleKm >= 1000
+            ? `${(scaleKm / 1000).toFixed(1)}k km`
+            : `${scaleKm} km`}
+        </div>
+      </div>
     </div>
   );
 }

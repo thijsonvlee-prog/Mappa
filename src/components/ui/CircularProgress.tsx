@@ -1,57 +1,57 @@
+import { cn } from '@/lib/utils';
+
 interface CircularProgressProps {
   value: number;
-  max?: number;
-  size?: number;
+  max: number;
+  radius?: number;
   strokeWidth?: number;
-  color?: string;
   className?: string;
+  children?: React.ReactNode;
 }
 
 export function CircularProgress({
   value,
-  max = 100,
-  size = 120,
+  max,
+  radius = 40,
   strokeWidth = 3,
-  color = 'var(--color-primary)',
   className,
+  children,
 }: CircularProgressProps) {
-  const radius = (size - strokeWidth) / 2;
-  const circumference = radius * 2 * Math.PI;
-  const offset = circumference - (value / max) * circumference;
+  const percentage = (value / max) * 100;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (percentage / 100) * circumference;
+
+  const diameter = (radius + strokeWidth) * 2;
 
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox={`0 0 ${size} ${size}`}
-      className={className}
-    >
-      {/* Background circle */}
-      <circle
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        fill="none"
-        stroke="var(--color-border)"
-        strokeWidth={strokeWidth}
-      />
-      {/* Progress circle */}
-      <circle
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        fill="none"
-        stroke={color}
-        strokeWidth={strokeWidth}
-        strokeDasharray={circumference}
-        strokeDashoffset={offset}
-        strokeLinecap="round"
-        style={{
-          transformOrigin: `${size / 2}px ${size / 2}px`,
-          transform: 'rotate(-90deg)',
-          transition: 'stroke-dashoffset 0.4s ease-out',
-        }}
-      />
-    </svg>
+    <div className={cn('relative inline-flex items-center justify-center', className)}>
+      <svg width={diameter} height={diameter} className="transform -rotate-90">
+        {/* Background circle */}
+        <circle
+          cx={radius + strokeWidth}
+          cy={radius + strokeWidth}
+          r={radius}
+          fill="transparent"
+          stroke="var(--color-border)"
+          strokeWidth={strokeWidth}
+        />
+        {/* Progress circle */}
+        <circle
+          cx={radius + strokeWidth}
+          cy={radius + strokeWidth}
+          r={radius}
+          fill="transparent"
+          stroke="var(--color-visited)"
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          strokeLinecap="round"
+          style={{
+            transition: 'stroke-dashoffset 400ms cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+        />
+      </svg>
+      {children && <div className="absolute">{children}</div>}
+    </div>
   );
 }
