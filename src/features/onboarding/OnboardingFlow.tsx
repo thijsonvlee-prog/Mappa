@@ -68,25 +68,27 @@ export function OnboardingFlow() {
             <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-light">
               <Globe className="h-10 w-10 text-primary" />
             </div>
-            <h1 className="mb-3 text-3xl font-bold text-foreground">Welcome to Mappa</h1>
-            <p className="mb-2 text-foreground-secondary">
-              Track your travels, one country at a time.
+            <h1 className="mb-3 text-4xl font-bold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>
+              Mappa
+            </h1>
+            <p className="mb-2 text-foreground-secondary" style={{ fontFamily: 'var(--font-serif)' }}>
+              Jouw persoonlijke wereldatlas
             </p>
             <p className="mb-8 text-sm text-foreground-muted">
-              All your data stays on this device. No account needed.
+              Volg je reizen en ontdek de wereld, land voor land. Alle gegevens blijven op dit apparaat.
             </p>
             <button
               onClick={() => setStep(1)}
               className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-medium text-primary-foreground hover:bg-primary-hover transition-colors"
             >
-              Get Started
+              Begin je atlas
               <ChevronRight className="h-4 w-4" />
             </button>
             <button
               onClick={handleSkip}
               className="mt-3 text-sm text-foreground-muted hover:text-foreground transition-colors"
             >
-              Skip setup
+              Overslaan
             </button>
           </div>
         )}
@@ -97,14 +99,14 @@ export function OnboardingFlow() {
             <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-light">
               <MapPin className="h-7 w-7 text-primary" />
             </div>
-            <h2 className="mb-2 text-2xl font-bold text-foreground">Where are you from?</h2>
-            <p className="mb-6 text-foreground-secondary">Select your home country</p>
+            <h2 className="mb-2 text-2xl font-bold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>Waar kom je vandaan?</h2>
+            <p className="mb-6 text-foreground-secondary">Selecteer je thuisland</p>
 
             <div className="relative mb-4">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground-muted" />
               <input
                 type="text"
-                placeholder="Search countries..."
+                placeholder="Zoek landen..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full rounded-lg border border-border bg-card py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/20"
@@ -127,7 +129,7 @@ export function OnboardingFlow() {
                   <span className="text-lg">{c.flag}</span>
                   <span className="flex-1 text-foreground">{c.name}</span>
                   {homeCountry === c.code && (
-                    <span className="text-xs font-medium text-primary">Selected</span>
+                    <span className="text-xs font-medium text-primary">Geselecteerd</span>
                   )}
                 </button>
               ))}
@@ -139,13 +141,13 @@ export function OnboardingFlow() {
                 className="flex items-center gap-1 rounded-lg px-4 py-2.5 text-sm text-foreground-secondary hover:text-foreground transition-colors"
               >
                 <ChevronLeft className="h-4 w-4" />
-                Back
+                Terug
               </button>
               <button
                 onClick={() => setStep(2)}
                 className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-6 py-2.5 font-medium text-primary-foreground hover:bg-primary-hover transition-colors"
               >
-                Next
+                Volgende
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
@@ -155,16 +157,16 @@ export function OnboardingFlow() {
         {/* Step 2: Quick Mark */}
         {step === 2 && (
           <div className="flex flex-col">
-            <h2 className="mb-2 text-2xl font-bold text-foreground">Where have you been?</h2>
+            <h2 className="mb-2 text-2xl font-bold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>Welke landen heb je bezocht?</h2>
             <p className="mb-4 text-foreground-secondary">
-              Tap countries you've visited. You can always change this later.
+              Tik op landen die je hebt bezocht. Je kunt dit later nog wijzigen.
             </p>
 
             <div className="relative mb-4">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground-muted" />
               <input
                 type="text"
-                placeholder="Search countries..."
+                placeholder="Zoek landen..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full rounded-lg border border-border bg-card py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/20"
@@ -200,7 +202,7 @@ export function OnboardingFlow() {
             </div>
 
             <p className="mt-3 text-center text-sm text-foreground-muted">
-              {selectedCountries.size + (homeCountry ? 1 : 0)} countries selected
+              {selectedCountries.size + (homeCountry ? 1 : 0)} landen geselecteerd
             </p>
 
             <div className="mt-4 flex gap-3">
@@ -209,13 +211,13 @@ export function OnboardingFlow() {
                 className="flex items-center gap-1 rounded-lg px-4 py-2.5 text-sm text-foreground-secondary hover:text-foreground transition-colors"
               >
                 <ChevronLeft className="h-4 w-4" />
-                Back
+                Terug
               </button>
               <button
                 onClick={() => { setStep(3); setSearchQuery(''); }}
                 className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-6 py-2.5 font-medium text-primary-foreground hover:bg-primary-hover transition-colors"
               >
-                Next
+                Volgende
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
@@ -238,23 +240,23 @@ export function OnboardingFlow() {
               <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-visited-light">
                 <PartyPopper className="h-10 w-10 text-visited" />
               </div>
-              <h1 className="mb-3 text-3xl font-bold text-foreground">You're all set!</h1>
+              <h1 className="mb-3 text-3xl font-bold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>Je atlas is geopend!</h1>
               {total > 0 ? (
                 <p className="mb-8 text-foreground-secondary">
-                  You've visited {total} {total === 1 ? 'country' : 'countries'} across{' '}
-                  {continents.size} {continents.size === 1 ? 'continent' : 'continents'}.
-                  That's {((total / TOTAL_COUNTRIES) * 100).toFixed(1)}% of the world!
+                  Je hebt {total} {total === 1 ? 'land' : 'landen'} bezocht in{' '}
+                  {continents.size} {continents.size === 1 ? 'continent' : 'continenten'}.
+                  Dat is {((total / TOTAL_COUNTRIES) * 100).toFixed(1)}% van de wereld!
                 </p>
               ) : (
                 <p className="mb-8 text-foreground-secondary">
-                  Start exploring and mark the countries you've visited.
+                  Begin met het verkennen en markeer de landen die je hebt bezocht.
                 </p>
               )}
               <button
                 onClick={handleComplete}
                 className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-medium text-primary-foreground hover:bg-primary-hover transition-colors"
               >
-                Explore Your Map
+                Ontdek je kaart
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
