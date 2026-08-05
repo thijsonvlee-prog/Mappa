@@ -10,8 +10,8 @@ export function MapScale({ zoom }: { zoom: number }) {
     <div
       style={{
         position: 'absolute',
-        bottom: '80px',
-        left: '20px',
+        top: '88px',
+        right: '16px',
         pointerEvents: 'none',
         opacity: 0.5,
       }}

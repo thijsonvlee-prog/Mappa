@@ -1,9 +1,15 @@
-import { useState, useMemo, useCallback } from 'react';
-import { Globe, MapPin, PartyPopper, ChevronRight, ChevronLeft, Search } from 'lucide-react';
+import { useState, useMemo, useCallback, lazy, Suspense } from 'react';
+import { MapPin, PartyPopper, ChevronRight, ChevronLeft, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { countries, countryMap, TOTAL_COUNTRIES } from '@/data/countries-lookup';
 import { useCountryStore } from '@/stores/country-store';
 import { useSettingsStore } from '@/stores/settings-store';
+
+// Lazy: pulls in the map-rendering library, kept out of the eager app-start
+// bundle since it's purely decorative on the welcome step.
+const AtlasFrontispiece = lazy(() =>
+  import('./AtlasFrontispiece').then((m) => ({ default: m.AtlasFrontispiece })),
+);
 
 export function OnboardingFlow() {
   const [step, setStep] = useState(0);
@@ -48,7 +54,27 @@ export function OnboardingFlow() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
-      <div className="w-full max-w-lg px-6">
+      {step === 0 && (
+        <>
+          <Suspense fallback={null}>
+            <AtlasFrontispiece />
+          </Suspense>
+          <span
+            className="pointer-events-none absolute left-5 top-5 text-[10px] tracking-wider text-foreground-muted/50"
+            style={{ fontFamily: 'var(--font-mono)' }}
+          >
+            60°N 20°W
+          </span>
+          <span
+            className="pointer-events-none absolute bottom-5 right-5 text-[10px] tracking-wider text-foreground-muted/50"
+            style={{ fontFamily: 'var(--font-mono)' }}
+          >
+            35°S 150°O
+          </span>
+        </>
+      )}
+
+      <div className="relative w-full max-w-lg px-6">
         {/* Progress */}
         <div className="mb-8 flex gap-2">
           {[0, 1, 2, 3].map((i) => (
@@ -65,16 +91,29 @@ export function OnboardingFlow() {
         {/* Step 0: Welcome */}
         {step === 0 && (
           <div className="flex flex-col items-center text-center">
-            <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary-light">
-              <Globe className="h-10 w-10 text-primary" />
-            </div>
-            <h1 className="mb-3 text-4xl font-bold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>
+            <svg viewBox="0 0 64 64" width="64" height="64" className="mb-5 text-primary">
+              <circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.4" />
+              <line x1="32" y1="6" x2="32" y2="16" stroke="currentColor" strokeWidth="1.5" />
+              <line x1="58" y1="32" x2="48" y2="32" stroke="currentColor" strokeWidth="1.5" />
+              <line x1="32" y1="58" x2="32" y2="48" stroke="currentColor" strokeWidth="1.5" />
+              <line x1="6" y1="32" x2="16" y2="32" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M32 20 L38 32 L32 44 L26 32 Z" fill="currentColor" />
+              <circle cx="32" cy="32" r="2.5" fill="var(--color-background)" />
+            </svg>
+            <h1
+              className="mb-1 text-5xl font-bold text-foreground"
+              style={{ fontFamily: 'var(--font-serif)' }}
+            >
               Mappa
             </h1>
-            <p className="mb-2 text-foreground-secondary" style={{ fontFamily: 'var(--font-serif)' }}>
+            <p
+              className="mb-6 text-sm uppercase tracking-[0.2em] text-foreground-muted"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
               Jouw persoonlijke wereldatlas
             </p>
-            <p className="mb-8 text-sm text-foreground-muted">
+            <div className="mb-6 h-px w-16 bg-border-strong" />
+            <p className="mb-8 max-w-xs text-sm text-foreground-muted">
               Volg je reizen en ontdek de wereld, land voor land. Alle gegevens blijven op dit apparaat.
             </p>
             <button

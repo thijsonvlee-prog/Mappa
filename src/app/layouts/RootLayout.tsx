@@ -47,7 +47,7 @@ export function RootLayout() {
       <SkipLink />
       <RouteAnnouncer />
       <Header />
-      <main id="main-content" className="flex-1 pb-16">
+      <main id="main-content" className="relative flex-1 pb-16">
         <ErrorBoundary>
           <Outlet />
         </ErrorBoundary>

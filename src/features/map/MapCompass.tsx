@@ -6,8 +6,8 @@ export function MapCompass() {
     <div
       style={{
         position: 'absolute',
-        bottom: '80px',
-        right: '20px',
+        top: '16px',
+        right: '16px',
         width: '60px',
         height: '60px',
         pointerEvents: 'none',
