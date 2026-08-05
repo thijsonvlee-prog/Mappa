@@ -38,13 +38,13 @@ function ControlButton({
 export function MapControls({ onZoomIn, onZoomOut, onReset, className }: MapControlsProps) {
   return (
     <div className={cn('absolute top-3 left-3 z-10 flex flex-col gap-1.5', className)}>
-      <ControlButton onClick={onZoomIn} label="Zoom in">
+      <ControlButton onClick={onZoomIn} label="Inzoomen">
         <ZoomIn className="size-4" />
       </ControlButton>
-      <ControlButton onClick={onZoomOut} label="Zoom out">
+      <ControlButton onClick={onZoomOut} label="Uitzoomen">
         <ZoomOut className="size-4" />
       </ControlButton>
-      <ControlButton onClick={onReset} label="Reset view">
+      <ControlButton onClick={onReset} label="Weergave resetten">
         <Maximize className="size-4" />
       </ControlButton>
     </div>

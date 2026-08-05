@@ -20,7 +20,7 @@ export function VisitForm({ visit, onSubmit, onCancel }: VisitFormProps) {
     setError('');
 
     if (startDate && endDate && endDate < startDate) {
-      setError('End date must be on or after start date');
+      setError('Einddatum moet op of na de startdatum liggen');
       return;
     }
 
@@ -41,7 +41,7 @@ export function VisitForm({ visit, onSubmit, onCancel }: VisitFormProps) {
     <form onSubmit={handleSubmit} className="flex flex-col gap-3 p-4 border border-border rounded-[var(--radius-md)] bg-background">
       <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-foreground">Start Date</label>
+          <label className="text-sm font-medium text-foreground">Startdatum</label>
           <input
             type="date"
             value={startDate}
@@ -50,7 +50,7 @@ export function VisitForm({ visit, onSubmit, onCancel }: VisitFormProps) {
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-foreground">End Date</label>
+          <label className="text-sm font-medium text-foreground">Einddatum</label>
           <input
             type="date"
             value={endDate}
@@ -61,11 +61,11 @@ export function VisitForm({ visit, onSubmit, onCancel }: VisitFormProps) {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium text-foreground">Notes</label>
+        <label className="text-sm font-medium text-foreground">Notities</label>
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          placeholder="Trip notes..."
+          placeholder="Reisnotities..."
           rows={3}
           className={cn(inputClass, 'h-auto resize-y')}
         />
@@ -77,10 +77,10 @@ export function VisitForm({ visit, onSubmit, onCancel }: VisitFormProps) {
 
       <div className="flex items-center gap-2 justify-end">
         <Button type="button" variant="ghost" size="sm" onClick={onCancel}>
-          Cancel
+          Annuleren
         </Button>
         <Button type="submit" size="sm">
-          {visit ? 'Update' : 'Add Visit'}
+          {visit ? 'Bijwerken' : 'Bezoek toevoegen'}
         </Button>
       </div>
     </form>

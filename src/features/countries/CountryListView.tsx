@@ -4,6 +4,7 @@ import { CountryListItem } from './CountryListItem';
 import type { Country } from '@/types';
 import type { Continent } from '@/types/enums';
 import { cn } from '@/lib/utils';
+import { continentLabels } from '@/lib/labels';
 
 interface CountryListViewProps {
   countries: Country[];
@@ -61,8 +62,8 @@ export function CountryListView({ countries }: CountryListViewProps) {
             {/* Sticky continent header */}
             <div className="sticky top-0 bg-background z-10 pb-2">
               <div className="flex items-center justify-between gap-3">
-                <h3 className="text-sm font-semibold text-foreground">
-                  {continent}
+                <h3 className="text-sm font-semibold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>
+                  {continentLabels[continent]}
                 </h3>
                 <div className="flex items-center gap-2 text-xs text-foreground-muted">
                   <span>{stats.visited} van {stats.total}</span>

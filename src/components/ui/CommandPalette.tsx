@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Command } from 'cmdk';
 import { useNavigate } from 'react-router-dom';
-import { Map, List, BarChart3, Settings, Search } from 'lucide-react';
+import { Globe2, BookOpen, Compass, Settings, Search } from 'lucide-react';
 import { useUIStore } from '@/stores/ui-store';
 import { useCountryStore } from '@/stores/country-store';
 import { countries, countryMap } from '@/data/countries-lookup';
@@ -10,10 +10,10 @@ import { CountryFlag } from '@/components/country/CountryFlag';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { label: 'Map', path: '/', icon: Map },
-  { label: 'Countries', path: '/countries', icon: List },
-  { label: 'Statistics', path: '/statistics', icon: BarChart3 },
-  { label: 'Settings', path: '/settings', icon: Settings },
+  { label: 'Atlas', path: '/', icon: Globe2 },
+  { label: 'Landen', path: '/countries', icon: BookOpen },
+  { label: 'Ontdek', path: '/statistics', icon: Compass },
+  { label: 'Instellingen', path: '/settings', icon: Settings },
 ];
 
 export function CommandPalette() {
@@ -67,7 +67,7 @@ export function CommandPalette() {
             <Search className="h-4 w-4 shrink-0 text-foreground-muted" />
             <Command.Input
               ref={inputRef}
-              placeholder="Search countries, navigate..."
+              placeholder="Zoek landen, navigeer..."
               className="flex h-12 w-full bg-transparent text-sm text-foreground placeholder:text-foreground-muted outline-none"
               autoFocus
             />
@@ -77,11 +77,11 @@ export function CommandPalette() {
           </div>
           <Command.List className="max-h-80 overflow-y-auto p-2">
             <Command.Empty className="py-6 text-center text-sm text-foreground-muted">
-              No results found.
+              Geen resultaten gevonden.
             </Command.Empty>
 
             <Command.Group
-              heading="Navigation"
+              heading="Navigatie"
               className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-foreground-muted"
             >
               {navItems.map((item) => (
@@ -104,7 +104,7 @@ export function CommandPalette() {
             <Command.Separator className="my-1.5 h-px bg-border" />
 
             <Command.Group
-              heading="Countries"
+              heading="Landen"
               className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-foreground-muted"
             >
               {countries.map((country) => {
@@ -121,7 +121,9 @@ export function CommandPalette() {
                     )}
                   >
                     <CountryFlag flag={country.flag} size="sm" />
-                    <span className="flex-1 truncate">{country.name}</span>
+                    <span className="flex-1 truncate" style={{ fontFamily: 'var(--font-serif)' }}>
+                      {country.name}
+                    </span>
                     {visit && <StatusBadge status={visit.status} />}
                   </Command.Item>
                 );

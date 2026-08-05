@@ -52,7 +52,7 @@ export function CitiesEditor({ cities, onChange }: CitiesEditorProps) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="Type a city and press Enter"
+        placeholder="Typ een stad en druk op Enter"
         className={cn(
           'flex h-9 w-full rounded-md border border-border bg-card px-3 py-1.5 text-sm text-foreground',
           'placeholder:text-foreground-muted',

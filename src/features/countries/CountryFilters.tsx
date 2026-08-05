@@ -1,5 +1,6 @@
 import { useUIStore } from '@/stores/ui-store';
 import { cn } from '@/lib/utils';
+import { continentLabels, statusLabels } from '@/lib/labels';
 import type { Continent, CountryStatus } from '@/types';
 
 const continents: Continent[] = [
@@ -11,11 +12,7 @@ const continents: Continent[] = [
   'Oceania',
 ];
 
-const statuses: { value: CountryStatus; label: string }[] = [
-  { value: 'visited', label: 'Visited' },
-  { value: 'planned', label: 'Planned' },
-  { value: 'not_visited', label: 'Not Visited' },
-];
+const statuses: CountryStatus[] = ['visited', 'planned', 'not_visited'];
 
 export function CountryFilters() {
   const filters = useUIStore((s) => s.filters);
@@ -63,7 +60,7 @@ export function CountryFilters() {
                   : 'bg-background-secondary text-foreground-secondary hover:bg-background-secondary/80',
               )}
             >
-              {continent}
+              {continentLabels[continent]}
             </button>
           );
         })}
@@ -73,7 +70,7 @@ export function CountryFilters() {
         <span className="text-xs font-medium text-foreground-muted shrink-0">
           Status:
         </span>
-        {statuses.map(({ value, label }) => {
+        {statuses.map((value) => {
           const active = filters.statuses.includes(value);
           return (
             <button
@@ -89,7 +86,7 @@ export function CountryFilters() {
                   : 'bg-background-secondary text-foreground-secondary hover:bg-background-secondary/80',
               )}
             >
-              {label}
+              {statusLabels[value]}
             </button>
           );
         })}
@@ -105,7 +102,7 @@ export function CountryFilters() {
               'focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-1',
             )}
           >
-            Reset
+            Wissen
           </button>
         )}
       </div>

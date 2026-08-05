@@ -37,7 +37,7 @@ export function CountryVisitsTab({ countryCode, visit }: CountryVisitsTabProps) 
   if (!visit) {
     return (
       <div className="py-8 text-center text-sm text-foreground-muted">
-        Set a status to start tracking visits.
+        Stel een status in om bezoeken bij te houden.
       </div>
     );
   }
@@ -46,12 +46,12 @@ export function CountryVisitsTab({ countryCode, visit }: CountryVisitsTabProps) 
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-medium text-foreground">
-          {visit.visits.length} visit{visit.visits.length !== 1 ? 's' : ''}
+          {visit.visits.length} {visit.visits.length !== 1 ? 'bezoeken' : 'bezoek'}
         </h3>
         {!showForm && !editingVisit && (
           <Button size="sm" variant="secondary" onClick={() => setShowForm(true)}>
             <Plus className="size-4" />
-            Add Visit
+            Bezoek toevoegen
           </Button>
         )}
       </div>
@@ -86,7 +86,7 @@ export function CountryVisitsTab({ countryCode, visit }: CountryVisitsTabProps) 
                 {v.startDate && v.endDate && <span className="text-foreground-muted">-</span>}
                 {v.endDate && <span>{v.endDate}</span>}
                 {!v.startDate && !v.endDate && (
-                  <span className="text-foreground-muted">No dates set</span>
+                  <span className="text-foreground-muted">Geen datums ingesteld</span>
                 )}
               </div>
               {v.notes && (
@@ -117,7 +117,7 @@ export function CountryVisitsTab({ countryCode, visit }: CountryVisitsTabProps) 
 
       {visit.visits.length === 0 && !showForm && (
         <div className="py-6 text-center text-sm text-foreground-muted">
-          No visits recorded yet.
+          Nog geen bezoeken geregistreerd.
         </div>
       )}
     </div>

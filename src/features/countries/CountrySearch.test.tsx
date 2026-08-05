@@ -13,7 +13,7 @@ describe('CountrySearch', () => {
     const user = userEvent.setup();
     render(<CountrySearch />);
 
-    await user.type(screen.getByPlaceholderText('Search countries...'), 'Japan');
+    await user.type(screen.getByPlaceholderText('Zoek landen...'), 'Japan');
 
     await waitFor(
       () => {
@@ -27,7 +27,7 @@ describe('CountrySearch', () => {
     const user = userEvent.setup();
     render(<CountrySearch />);
 
-    const input = screen.getByPlaceholderText('Search countries...');
+    const input = screen.getByPlaceholderText('Zoek landen...');
     await user.type(input, 'Peru');
 
     const clearButton = await screen.findByRole('button');

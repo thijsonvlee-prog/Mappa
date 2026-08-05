@@ -40,9 +40,9 @@ export function ExportDialog({ open, onOpenChange }: ExportDialogProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Export Data</DialogTitle>
+          <DialogTitle>Gegevens exporteren</DialogTitle>
           <DialogDescription>
-            Download all your travel data as a JSON file.
+            Download al je reisgegevens als JSON-bestand.
           </DialogDescription>
         </DialogHeader>
 
@@ -50,12 +50,12 @@ export function ExportDialog({ open, onOpenChange }: ExportDialogProps) {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-foreground">
-                Include photos
+                Foto's meenemen
               </p>
               <p className="text-sm text-foreground-muted">
                 {photos.size > 0
-                  ? `${photos.size} photo${photos.size === 1 ? '' : 's'} will be embedded. This may significantly increase file size.`
-                  : 'No photos to include.'}
+                  ? `${photos.size} foto${photos.size === 1 ? '' : "'s"} worden ingesloten. Dit kan de bestandsgrootte flink vergroten.`
+                  : 'Geen foto\'s om mee te nemen.'}
               </p>
             </div>
             <Switch
@@ -71,11 +71,11 @@ export function ExportDialog({ open, onOpenChange }: ExportDialogProps) {
             variant="secondary"
             onClick={() => onOpenChange(false)}
           >
-            Cancel
+            Annuleren
           </Button>
           <Button onClick={handleExport} disabled={exporting}>
             <Download className="h-4 w-4" />
-            {exporting ? 'Exporting...' : 'Export'}
+            {exporting ? 'Bezig met exporteren...' : 'Exporteer'}
           </Button>
         </DialogFooter>
       </DialogContent>

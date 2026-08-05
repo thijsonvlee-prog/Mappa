@@ -3,10 +3,10 @@ import { useUIStore } from '@/stores/ui-store';
 import { cn } from '@/lib/utils';
 
 const sortOptions = [
-  { value: 'name', label: 'Name' },
+  { value: 'name', label: 'Naam' },
   { value: 'status', label: 'Status' },
-  { value: 'rating', label: 'Rating' },
-  { value: 'updatedAt', label: 'Last Updated' },
+  { value: 'rating', label: 'Beoordeling' },
+  { value: 'updatedAt', label: 'Laatst bijgewerkt' },
 ] as const;
 
 export function CountrySortSelect() {
@@ -37,7 +37,7 @@ export function CountrySortSelect() {
       <button
         type="button"
         onClick={toggleSortDirection}
-        aria-label={`Sort ${sortDirection === 'asc' ? 'ascending' : 'descending'}`}
+        aria-label={`Sorteer ${sortDirection === 'asc' ? 'oplopend' : 'aflopend'}`}
         className={cn(
           'flex items-center justify-center size-9',
           'border border-border rounded-md bg-card hover:bg-card-hover text-foreground',

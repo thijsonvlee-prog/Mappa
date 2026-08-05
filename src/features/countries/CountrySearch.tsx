@@ -27,7 +27,7 @@ export function CountrySearch() {
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Search countries..."
+        placeholder="Zoek landen..."
         className={cn(
           'flex h-10 w-full rounded-md border border-border bg-card pl-10 pr-9 py-2 text-sm text-foreground',
           'placeholder:text-foreground-muted',

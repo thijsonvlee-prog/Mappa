@@ -47,7 +47,7 @@ export function CountryPhotosTab({ countryCode, visit }: CountryPhotosTabProps) 
   if (!visit) {
     return (
       <div className="py-8 text-center text-sm text-foreground-muted">
-        Set a status to start adding photos.
+        Stel een status in om foto's toe te voegen.
       </div>
     );
   }
@@ -70,7 +70,7 @@ export function CountryPhotosTab({ countryCode, visit }: CountryPhotosTabProps) 
       >
         <Upload className="size-6 text-foreground-muted" />
         <p className="text-sm text-foreground-muted">
-          Drop images here or click to upload
+          Sleep afbeeldingen hierheen of klik om te uploaden
         </p>
         <input
           ref={fileInputRef}
@@ -97,7 +97,7 @@ export function CountryPhotosTab({ countryCode, visit }: CountryPhotosTabProps) 
 
       {visit.photoIds.length === 0 && (
         <div className="py-6 text-center text-sm text-foreground-muted">
-          No photos yet.
+          Nog geen foto's.
         </div>
       )}
     </div>

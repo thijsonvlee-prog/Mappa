@@ -17,10 +17,10 @@ test.describe('map', () => {
     await clickOnMap(page);
 
     await expect(page.getByRole('radiogroup')).toBeVisible();
-    await expect(page.getByRole('radio', { name: 'Not Visited', exact: true })).toBeVisible();
-    await expect(page.getByRole('radio', { name: 'Planned', exact: true })).toBeVisible();
-    await expect(page.getByRole('radio', { name: 'Visited', exact: true })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'View Details' })).toBeVisible();
+    await expect(page.getByRole('radio', { name: 'Niet bezocht', exact: true })).toBeVisible();
+    await expect(page.getByRole('radio', { name: 'Gepland', exact: true })).toBeVisible();
+    await expect(page.getByRole('radio', { name: 'Bezocht', exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Bekijk details' })).toBeVisible();
   });
 
   test('changing status via the quick panel persists to the country list', async ({ page }) => {
@@ -28,18 +28,18 @@ test.describe('map', () => {
     const countryName = await page.getByTestId('quick-panel-country-name').textContent();
     expect(countryName).toBeTruthy();
 
-    await page.getByRole('radio', { name: 'Visited', exact: true }).click();
-    await page.getByRole('button', { name: 'View Details' }).click();
+    await page.getByRole('radio', { name: 'Bezocht', exact: true }).click();
+    await page.getByRole('button', { name: 'Bekijk details' }).click();
 
     await expect(page.getByRole('dialog')).toBeVisible();
     await expect(
-      page.getByRole('dialog').getByRole('radio', { name: 'Visited', exact: true }),
+      page.getByRole('dialog').getByRole('radio', { name: 'Bezocht', exact: true }),
     ).toHaveAttribute('data-state', 'on');
 
     await page.keyboard.press('Escape');
-    await page.getByRole('link', { name: 'Countries' }).click();
+    await page.getByRole('link', { name: 'Landen' }).click();
 
-    await page.getByPlaceholder('Search countries...').fill(countryName!.trim());
-    await expect(page.getByText('Visited', { exact: true }).first()).toBeVisible();
+    await page.getByPlaceholder('Zoek landen...').fill(countryName!.trim());
+    await expect(page.getByText('Bezocht', { exact: true }).first()).toBeVisible();
   });
 });
