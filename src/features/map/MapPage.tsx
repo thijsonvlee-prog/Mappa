@@ -132,8 +132,14 @@ export function MapPage() {
   }
 
   // Mobile: Full-screen map with bottom sheet stats
+  // Note: this container's only children are position:absolute (map +
+  // bottom sheet), so it has no in-flow content to size against — a
+  // percentage height (h-full) collapses to 0 in that case. Anchor via
+  // absolute positioning against the positioned <main> instead. `bottom-16`
+  // (not inset-0) mirrors main's own pb-16, since abspos offsets resolve
+  // against main's padding box, which pb-16 sits inside of.
   return (
-    <div className="flex flex-col h-full relative">
+    <div className="absolute inset-x-0 top-0 bottom-16">
       {/* Map fills entire screen */}
       <ErrorBoundary
         fallbackTitle="The map couldn't be displayed"
