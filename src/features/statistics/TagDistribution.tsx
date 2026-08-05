@@ -35,11 +35,11 @@ export function TagDistribution() {
     return (
       <Card>
         <CardHeader>
-          <h3 className="text-lg font-semibold text-foreground">Tags</h3>
+          <h3 className="text-lg font-semibold text-foreground">Labels</h3>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-foreground-muted">
-            No tags in use yet. Add tags to your countries to see distribution here.
+            Geen labels gebruikt. Voeg labels toe aan landen om de verdeling hier te zien.
           </p>
         </CardContent>
       </Card>
@@ -49,7 +49,7 @@ export function TagDistribution() {
   return (
     <Card>
       <CardHeader>
-        <h3 className="text-lg font-semibold text-foreground">Tags</h3>
+        <h3 className="text-lg font-semibold text-foreground">Labels</h3>
       </CardHeader>
       <CardContent>
         <ul className="space-y-3">
@@ -66,7 +66,7 @@ export function TagDistribution() {
                   </span>
                 </div>
                 <span className="text-sm text-foreground-muted">
-                  {tag.count} {tag.count === 1 ? 'country' : 'countries'}
+                  {tag.count} {tag.count === 1 ? 'land' : 'landen'}
                 </span>
               </div>
               <div className="h-2 w-full overflow-hidden rounded-full bg-background-secondary">

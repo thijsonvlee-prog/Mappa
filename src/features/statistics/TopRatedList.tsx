@@ -11,11 +11,11 @@ export function TopRatedList() {
     return (
       <Card>
         <CardHeader>
-          <h3 className="text-lg font-semibold text-foreground">Top Rated</h3>
+          <h3 className="text-lg font-semibold text-foreground">Beste beoordeeld</h3>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-foreground-muted">
-            No rated countries yet. Add ratings to your visited countries to see them here.
+            Geen landen beoordeeld. Voeg beoordelingen toe aan bezochte landen om ze hier te zien.
           </p>
         </CardContent>
       </Card>
@@ -25,7 +25,7 @@ export function TopRatedList() {
   return (
     <Card>
       <CardHeader>
-        <h3 className="text-lg font-semibold text-foreground">Top Rated</h3>
+        <h3 className="text-lg font-semibold text-foreground">Beste beoordeeld</h3>
       </CardHeader>
       <CardContent>
         <ul className="space-y-3">
