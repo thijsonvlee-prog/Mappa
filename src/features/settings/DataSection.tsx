@@ -13,44 +13,44 @@ export function DataSection() {
   return (
     <section className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-foreground">Data</h2>
+        <h2 className="text-lg font-semibold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>Gegevens</h2>
         <p className="text-sm text-foreground-muted">
-          Export, import, or reset your travel data.
+          Exporteer, importeer of reset je reisgegevens.
         </p>
       </div>
 
       <div className="space-y-3">
         <div className="flex items-center justify-between rounded-lg border border-border p-4">
           <div>
-            <p className="text-sm font-medium text-foreground">Export Data</p>
+            <p className="text-sm font-medium text-foreground">Gegevens exporteren</p>
             <p className="text-sm text-foreground-muted">
-              Download all your data as a JSON file.
+              Download al je gegevens als JSON-bestand.
             </p>
           </div>
           <Button variant="secondary" onClick={() => setExportOpen(true)}>
             <Download className="h-4 w-4" />
-            Export
+            Exporteer
           </Button>
         </div>
 
         <div className="flex items-center justify-between rounded-lg border border-border p-4">
           <div>
-            <p className="text-sm font-medium text-foreground">Import Data</p>
+            <p className="text-sm font-medium text-foreground">Gegevens importeren</p>
             <p className="text-sm text-foreground-muted">
-              Restore data from a previously exported file.
+              Herstel gegevens uit een eerder geëxporteerd bestand.
             </p>
           </div>
           <Button variant="secondary" onClick={() => setImportOpen(true)}>
             <Upload className="h-4 w-4" />
-            Import
+            Importeer
           </Button>
         </div>
 
         <div className="flex items-center justify-between rounded-lg border border-destructive/50 p-4">
           <div>
-            <p className="text-sm font-medium text-foreground">Reset Data</p>
+            <p className="text-sm font-medium text-foreground">Gegevens resetten</p>
             <p className="text-sm text-foreground-muted">
-              Permanently delete all your travel data.
+              Verwijder permanent al je reisgegevens.
             </p>
           </div>
           <Button variant="destructive" onClick={() => setResetOpen(true)}>

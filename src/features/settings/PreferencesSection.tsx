@@ -24,15 +24,15 @@ export function PreferencesSection() {
   return (
     <section className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-foreground">Preferences</h2>
+        <h2 className="text-lg font-semibold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>Voorkeuren</h2>
         <p className="text-sm text-foreground-muted">
-          Configure how data is displayed.
+          Configureer hoe gegevens worden weergegeven.
         </p>
       </div>
 
       <div className="space-y-2">
         <label className="text-sm font-medium text-foreground">
-          Date Format
+          Datumnotatie
         </label>
         <Select
           value={dateFormat}
@@ -52,7 +52,7 @@ export function PreferencesSection() {
           </SelectContent>
         </Select>
         <p className="text-sm text-foreground-muted">
-          Preview: {preview}
+          Voorbeeld: {preview}
         </p>
       </div>
     </section>
