@@ -123,6 +123,23 @@ body {
   to { translate: 0 100%; }
 }
 
+@keyframes countryMarkPulse {
+  0% { scale: 1; }
+  50% { scale: 1.02; }
+  100% { scale: 1; }
+}
+
+@keyframes countryMarkStroke {
+  from {
+    stroke-width: 0.5;
+    stroke: var(--color-map-stroke);
+  }
+  to {
+    stroke-width: 1.5;
+    stroke: var(--color-primary);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
