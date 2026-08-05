@@ -11,13 +11,15 @@ import {
 import { Card, CardHeader, CardContent } from '@/components/ui/Card';
 import { useStatistics } from './hooks/useStatistics';
 
+// Continent accent colors from design system
 const CONTINENT_COLORS: Record<string, string> = {
-  Europe: 'var(--color-primary)',
-  Asia: '#6366f1',
-  Africa: '#f59e0b',
-  'North America': '#10b981',
-  'South America': '#ef4444',
-  Oceania: '#8b5cf6',
+  'Europe': '#1B3A5C',      // Atlas navy
+  'Asia': '#8B5E3C',         // Warm brown
+  'Africa': '#C17B3A',       // Terracotta
+  'North America': '#4A6741', // Pine green
+  'South America': '#B85C38', // Burnt sienna
+  'Oceania': '#2E7D82',      // Ocean teal
+  'Antarctica': '#94A3B8',   // Ice gray
 };
 
 export function ContinentBreakdown() {
@@ -33,7 +35,7 @@ export function ContinentBreakdown() {
   return (
     <Card>
       <CardHeader>
-        <h3 className="text-lg font-semibold text-foreground">By Continent</h3>
+        <h3 className="text-lg font-semibold text-foreground">Per continent</h3>
       </CardHeader>
       <CardContent>
         <div className="h-[300px] w-full">
