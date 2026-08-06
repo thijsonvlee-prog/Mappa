@@ -1,7 +1,15 @@
+import { m } from 'motion/react';
 import { useUIStore } from '@/stores/ui-store';
 import { cn } from '@/lib/utils';
+import { springPop } from '@/lib/motion';
 import { continentLabels, statusLabels } from '@/lib/labels';
 import type { Continent, CountryStatus } from '@/types';
+
+/** Shared chip motion: a quick punch down on press, springing back on release. */
+const chipMotion = {
+  whileTap: { scale: 0.92 },
+  transition: springPop,
+} as const;
 
 const continents: Continent[] = [
   'Africa',
@@ -47,10 +55,11 @@ export function CountryFilters() {
         {continents.map((continent) => {
           const active = filters.continents.includes(continent);
           return (
-            <button
+            <m.button
               key={continent}
               type="button"
               onClick={() => toggleContinent(continent)}
+              {...chipMotion}
               className={cn(
                 'inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium',
                 'transition-colors duration-[var(--transition-fast)] cursor-pointer',
@@ -61,7 +70,7 @@ export function CountryFilters() {
               )}
             >
               {continentLabels[continent]}
-            </button>
+            </m.button>
           );
         })}
       </div>
@@ -73,10 +82,11 @@ export function CountryFilters() {
         {statuses.map((value) => {
           const active = filters.statuses.includes(value);
           return (
-            <button
+            <m.button
               key={value}
               type="button"
               onClick={() => toggleStatus(value)}
+              {...chipMotion}
               className={cn(
                 'inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium',
                 'transition-colors duration-[var(--transition-fast)] cursor-pointer',
@@ -87,7 +97,7 @@ export function CountryFilters() {
               )}
             >
               {statusLabels[value]}
-            </button>
+            </m.button>
           );
         })}
 

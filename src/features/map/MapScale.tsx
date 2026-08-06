@@ -41,6 +41,8 @@ export function MapScale({ zoom }: { zoom: number }) {
               height: '2px',
               backgroundColor: 'var(--color-foreground-muted)',
               position: 'relative',
+              // The bar re-measures itself as you zoom instead of snapping.
+              transition: 'width 260ms cubic-bezier(0.4, 0, 0.2, 1)',
             }}
           >
             {/* Left tick */}

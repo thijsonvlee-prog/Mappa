@@ -55,8 +55,9 @@ export function CountryDetailSheet() {
           className={cn(
             'fixed right-0 top-0 z-50 h-full w-full sm:w-[420px]',
             'bg-card border-l border-border shadow-lg',
-            'flex flex-col',
-            'data-[state=open]:animate-[slideInRight_200ms_ease-out] data-[state=closed]:animate-[slideOutRight_150ms_ease-in]',
+            'flex flex-col origin-right',
+            'data-[state=open]:animate-[pageTurnIn_260ms_cubic-bezier(0.22,0.61,0.36,1)]',
+            'data-[state=closed]:animate-[pageTurnOut_180ms_ease-in]',
           )}
         >
           <DialogPrimitive.Title className="sr-only">

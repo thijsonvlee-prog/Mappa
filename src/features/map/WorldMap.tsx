@@ -11,6 +11,7 @@ import { MapCompass } from './MapCompass';
 import { MapScale } from './MapScale';
 import { CountryQuickPanel } from './CountryQuickPanel';
 import { CountryInkBloom } from './CountryInkBloom';
+import { MapInvitation } from './MapInvitation';
 import { useMapInteraction } from './hooks/useMapInteraction';
 import { bearingTo } from './hooks/useCompassBearing';
 import { useCountryColor } from './hooks/useCountryColor';
@@ -38,6 +39,9 @@ export function WorldMap({ className }: WorldMapProps) {
   const { position, handleMoveEnd, zoomIn, zoomOut, resetView } = useMapInteraction();
   const mapProjection = useSettingsStore((s) => s.mapProjection);
   const lastMarked = useCountryStore((s) => s.lastMarked);
+  // Scalar selector: flips exactly once, on the very first country marked.
+  const isAtlasEmpty = useCountryStore((s) => s.visits.size === 0);
+  const homeCountry = useSettingsStore((s) => s.homeCountry);
   const { getFill } = useCountryColor();
 
   const [hover, setHover] = useState<HoverState>({
@@ -124,6 +128,18 @@ export function WorldMap({ className }: WorldMapProps) {
                   />
                 );
               });
+
+              // An empty atlas gets a single breathing country as an
+              // invitation to start. Only ever present in the zero-country
+              // state, so it never competes with the marking animation.
+              if (isAtlasEmpty) {
+                const invite = geographies.find(
+                  (geo) => resolveIsoCode(geo) === (homeCountry ?? 'NL'),
+                );
+                if (invite) {
+                  nodes.push(<MapInvitation key="invitation" geography={invite} />);
+                }
+              }
 
               // Exactly one animated node, drawn over the plain geographies.
               // Rendered inside this render prop so it inherits the same
