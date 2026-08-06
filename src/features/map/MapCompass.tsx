@@ -1,7 +1,26 @@
-// Subtle compass rose in bottom-right corner
-// Shows cardinal directions (N, O, Z, W)
+import { m, useReducedMotion } from 'motion/react';
+import { needleSwing } from '@/lib/motion';
 
-export function MapCompass() {
+interface MapCompassProps {
+  /**
+   * Degrees clockwise from north. The needle swings here and wobbles to rest,
+   * pointing at the country the user most recently marked. Null points north.
+   */
+  bearing?: number | null;
+}
+
+/**
+ * Compass rose in the top-right of the map.
+ *
+ * The rose itself is fixed decoration, but the needle is live: mark a country
+ * and it swings round to point at it, overshoots, and settles like a real
+ * magnetic needle. Users don't expect the decoration to be alive, which is
+ * exactly why it lands.
+ */
+export function MapCompass({ bearing = null }: MapCompassProps) {
+  const reduceMotion = useReducedMotion();
+  const target = bearing ?? 0;
+
   return (
     <div
       style={{
@@ -42,6 +61,17 @@ export function MapCompass() {
         <text x="20" y="33" textAnchor="middle" fontSize="7" fill="var(--color-foreground-muted)" fontWeight="400">
           W
         </text>
+
+        {/* The live needle */}
+        <m.g
+          style={{ transformOrigin: '30px 30px' }}
+          initial={{ rotate: 0 }}
+          animate={{ rotate: target }}
+          transition={reduceMotion ? { duration: 0 } : needleSwing}
+        >
+          <path d="M30 16 L34 30 L30 34 L26 30 Z" fill="var(--color-primary)" opacity="0.9" />
+          <path d="M30 44 L26 30 L30 26 L34 30 Z" fill="var(--color-foreground-muted)" opacity="0.6" />
+        </m.g>
 
         {/* Center dot */}
         <circle cx="30" cy="30" r="2" fill="var(--color-foreground-muted)" />

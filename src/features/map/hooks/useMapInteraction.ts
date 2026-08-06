@@ -16,9 +16,19 @@ export function useMapInteraction(initialCenter?: [number, number], initialZoom?
     zoom: initialZoom ?? MIN_ZOOM,
   });
 
-  const handleMoveEnd = useCallback((pos: MapPosition) => {
-    setPosition(pos);
-  }, []);
+  // react-simple-maps reports the new view as `{ coordinates, zoom }`, not
+  // `{ center, zoom }`. Storing the payload verbatim left `center` undefined
+  // after any pan or zoom, which silently broke the controlled `center` prop
+  // and reset-to-default. Normalise it here.
+  const handleMoveEnd = useCallback(
+    (pos: { coordinates?: [number, number]; center?: [number, number]; zoom: number }) => {
+      setPosition((prev) => ({
+        center: pos.coordinates ?? pos.center ?? prev.center,
+        zoom: pos.zoom ?? prev.zoom,
+      }));
+    },
+    [],
+  );
 
   const zoomIn = useCallback(() => {
     setPosition((prev) => ({

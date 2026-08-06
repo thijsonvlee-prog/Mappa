@@ -9,6 +9,7 @@ import { useIsDesktop } from '@/hooks/useMediaQuery';
 import { getCountry } from '@/data/countries-lookup';
 import { CountryFlag } from '@/components/country/CountryFlag';
 import { StatusBadge } from '@/components/country/StatusBadge';
+import { AnimatedNumber } from '@/components/ui/AnimatedNumber';
 import { cn } from '@/lib/utils';
 import { formatPercentage } from '@/lib/utils';
 
@@ -33,7 +34,9 @@ function StatCard({
         {icon}
       </div>
       <div className="min-w-0">
-        <p className="text-2xl font-bold text-foreground leading-tight">{value}</p>
+        <p className="text-2xl font-bold text-foreground leading-tight">
+          {typeof value === 'number' ? <AnimatedNumber value={value} /> : value}
+        </p>
         <p className="text-xs text-foreground-muted">{label}</p>
       </div>
     </div>

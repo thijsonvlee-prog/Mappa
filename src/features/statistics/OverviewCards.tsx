@@ -1,6 +1,7 @@
 import { Globe, MapPin, Building2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/Card';
 import { CircularProgress } from '@/components/ui/CircularProgress';
+import { AnimatedNumber } from '@/components/ui/AnimatedNumber';
 import { formatPercentage } from '@/lib/utils';
 import { useStatistics } from './hooks/useStatistics';
 
@@ -40,9 +41,11 @@ export function OverviewCards() {
             max={195}
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="text-4xl font-bold text-foreground" style={{ fontFamily: 'var(--font-serif)' }}>
-              {stats.totalVisited}
-            </div>
+            <AnimatedNumber
+              value={stats.totalVisited}
+              className="text-4xl font-bold text-foreground"
+              style={{ fontFamily: 'var(--font-serif)' }}
+            />
             <div className="text-xs text-foreground-muted">landen</div>
           </div>
         </div>

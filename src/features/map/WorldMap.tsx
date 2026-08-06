@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { ComposableMap, ZoomableGroup, Geographies } from '@vnedyalk0v/react19-simple-maps';
 import worldData from '@/data/world-110m.json';
 import { resolveIsoCode } from '@/data/iso-topojson-map';
-import { MapGeography } from './MapGeography';
+import { MapGeography, type MapPoint } from './MapGeography';
 import { MapTooltip } from './MapTooltip';
 import { MapControls } from './MapControls';
 import { MapLegend } from './MapLegend';
@@ -10,8 +10,13 @@ import { MapGraticule } from './MapGraticule';
 import { MapCompass } from './MapCompass';
 import { MapScale } from './MapScale';
 import { CountryQuickPanel } from './CountryQuickPanel';
+import { CountryInkBloom } from './CountryInkBloom';
 import { useMapInteraction } from './hooks/useMapInteraction';
+import { bearingTo } from './hooks/useCompassBearing';
+import { useCountryColor } from './hooks/useCountryColor';
 import { useSettingsStore } from '@/stores/settings-store';
+import { useCountryStore } from '@/stores/country-store';
+import { getCountry } from '@/data/countries-lookup';
 import { cn } from '@/lib/utils';
 
 interface HoverState {
@@ -32,6 +37,8 @@ interface WorldMapProps {
 export function WorldMap({ className }: WorldMapProps) {
   const { position, handleMoveEnd, zoomIn, zoomOut, resetView } = useMapInteraction();
   const mapProjection = useSettingsStore((s) => s.mapProjection);
+  const lastMarked = useCountryStore((s) => s.lastMarked);
+  const { getFill } = useCountryColor();
 
   const [hover, setHover] = useState<HoverState>({
     code: null,
@@ -43,6 +50,11 @@ export function WorldMap({ className }: WorldMapProps) {
     code: null,
     position: { x: 0, y: 0 },
   });
+
+  // Where the ink starts. Null when the mark came from the country list or the
+  // detail sheet rather than a tap, in which case the bloom falls back to the
+  // country's own centre.
+  const [inkOrigin, setInkOrigin] = useState<MapPoint | null>(null);
 
   const handleHover = useCallback(
     (code: string | null, geo: any, event: React.MouseEvent) => {
@@ -59,16 +71,31 @@ export function WorldMap({ className }: WorldMapProps) {
     [],
   );
 
-  const handleClick = useCallback((code: string, _geo: any, event: React.MouseEvent) => {
-    setClick({
-      code,
-      position: { x: event.clientX, y: event.clientY },
-    });
-  }, []);
+  const handleClick = useCallback(
+    (code: string, _geo: any, event: React.MouseEvent, point: MapPoint | null) => {
+      setInkOrigin(point);
+      setClick({
+        code,
+        position: { x: event.clientX, y: event.clientY },
+      });
+    },
+    [],
+  );
 
   const handleClosePanel = useCallback(() => {
     setClick({ code: null, position: { x: 0, y: 0 } });
   }, []);
+
+  // Only hand-made marks animate — bulk writes from onboarding or import must
+  // never bloom or swing the needle.
+  const activeMark = lastMarked?.origin === 'user' ? lastMarked : null;
+
+  const bearing = useMemo(() => {
+    if (!activeMark) return null;
+    const country = getCountry(activeMark.countryCode);
+    if (!country) return null;
+    return bearingTo(position.center as [number, number], country.coordinates);
+  }, [activeMark, position.center]);
 
   return (
     <div className={cn('relative w-full h-full overflow-hidden', className)}>
@@ -83,8 +110,8 @@ export function WorldMap({ className }: WorldMapProps) {
           onMoveEnd={handleMoveEnd as any}
         >
           <Geographies geography={worldData as any}>
-            {({ geographies }: { geographies: any[] }) =>
-              geographies.map((geo) => {
+            {({ geographies }: { geographies: any[] }) => {
+              const nodes: React.ReactNode[] = geographies.map((geo) => {
                 const isoCode = resolveIsoCode(geo);
                 if (!isoCode) return null;
                 return (
@@ -96,14 +123,35 @@ export function WorldMap({ className }: WorldMapProps) {
                     onClick={handleClick}
                   />
                 );
-              })
-            }
+              });
+
+              // Exactly one animated node, drawn over the plain geographies.
+              // Rendered inside this render prop so it inherits the same
+              // projection context as the paths underneath it.
+              if (activeMark) {
+                const markedGeo = geographies.find(
+                  (geo) => resolveIsoCode(geo) === activeMark.countryCode,
+                );
+                if (markedGeo) {
+                  nodes.push(
+                    <CountryInkBloom
+                      key={`ink-${activeMark.countryCode}-${activeMark.at}`}
+                      geography={markedGeo}
+                      fill={getFill(activeMark.status)}
+                      origin={inkOrigin}
+                    />,
+                  );
+                }
+              }
+
+              return nodes;
+            }}
           </Geographies>
           <MapGraticule zoom={position.zoom} />
         </ZoomableGroup>
       </ComposableMap>
 
-      <MapCompass />
+      <MapCompass bearing={bearing} />
       <MapScale zoom={position.zoom} />
 
       <MapControls onZoomIn={zoomIn} onZoomOut={zoomOut} onReset={resetView} />
