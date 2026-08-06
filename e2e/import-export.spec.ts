@@ -2,6 +2,12 @@ import { test, expect } from '@playwright/test';
 import { resetAppState, skipOnboarding, clickOnMap } from './helpers';
 
 test.describe('import and export', () => {
+  // These are the heaviest tests in the suite: each one exports a file, waits
+  // on a real download, wipes IndexedDB, walks back through onboarding, and
+  // re-imports through file validation. The round trip measures ~40s, so the
+  // 30s default left no headroom and failed intermittently on timing alone.
+  test.describe.configure({ timeout: 90_000 });
+
   test.beforeEach(async ({ page }) => {
     await resetAppState(page);
     await skipOnboarding(page);
