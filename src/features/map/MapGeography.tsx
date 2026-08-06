@@ -109,10 +109,14 @@ export const MapGeography = React.memo(function MapGeography({
       style={{
         default: {
           outline: 'none',
-          // The scale pulse that used to live here is now the overlay's job —
-          // running both would double up the squash.
+          // The squash-and-pop lives here rather than on the ink overlay: this
+          // path carries no mask, so scaling it is cheap, whereas transforming
+          // the masked overlay forced a full mask re-rasterisation every frame.
           transition: isBlooming
             ? 'stroke-width 300ms ease-out, stroke 300ms ease-out'
+            : 'none',
+          animation: isBlooming
+            ? 'countryMarkPop 420ms cubic-bezier(0.34, 1.56, 0.64, 1)'
             : 'none',
         },
         hover: { outline: 'none', cursor: 'pointer' },

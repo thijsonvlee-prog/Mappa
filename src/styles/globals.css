@@ -190,6 +190,16 @@ body {
   outline-offset: 2px;
 }
 
+/* The squash-and-pop a country takes when marked. Lives on the plain path
+   rather than the ink overlay, which carries a mask that would have to be
+   re-rasterised on every frame of a transform. */
+@keyframes countryMarkPop {
+  0%   { scale: 1; }
+  35%  { scale: 1.14; }
+  65%  { scale: 0.97; }
+  100% { scale: 1; }
+}
+
 @keyframes countryMarkPulse {
   0% { scale: 1; }
   50% { scale: 1.02; }

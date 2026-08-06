@@ -1,7 +1,7 @@
 import { useLayoutEffect, useId, useRef, useState } from 'react';
 import { Geography } from '@vnedyalk0v/react19-simple-maps';
 import { m, useReducedMotion } from 'motion/react';
-import { inkSpread, springPop } from '@/lib/motion';
+import { inkSpread } from '@/lib/motion';
 
 interface CountryInkBloomProps {
   geography: any;
@@ -81,24 +81,23 @@ export function CountryInkBloom({ geography, fill, origin }: CountryInkBloomProp
         </mask>
       </defs>
 
-      <m.g
-        style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
-        animate={{ scale: reduceMotion ? 1 : [1, 1.14, 0.96, 1] }}
-        transition={reduceMotion ? { duration: 0 } : springPop}
-      >
-        {/* Rendered unmasked-but-invisible on the very first pass purely so it
-            can be measured; the layout effect fills in geom before paint. */}
-        <Geography
-          geography={geography}
-          mask={geom ? `url(#${maskId})` : undefined}
-          opacity={geom ? 1 : 0}
-          style={{
-            default: { fill, stroke: 'none', outline: 'none' },
-            hover: { fill, stroke: 'none', outline: 'none' },
-            pressed: { fill, stroke: 'none', outline: 'none' },
-          }}
-        />
-      </m.g>
+      {/* No transform lives on this subtree on purpose: animating one on a
+          masked element makes the browser re-rasterise the mask each frame.
+          The squash-and-pop is a CSS keyframe on the plain, unmasked path
+          underneath (see MapGeography), where it is far cheaper.
+
+          Rendered unmasked-but-invisible on the very first pass purely so it
+          can be measured; the layout effect fills in geom before paint. */}
+      <Geography
+        geography={geography}
+        mask={geom ? `url(#${maskId})` : undefined}
+        opacity={geom ? 1 : 0}
+        style={{
+          default: { fill, stroke: 'none', outline: 'none' },
+          hover: { fill, stroke: 'none', outline: 'none' },
+          pressed: { fill, stroke: 'none', outline: 'none' },
+        }}
+      />
     </g>
   );
 }
