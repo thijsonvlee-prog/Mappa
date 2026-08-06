@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
 import { Providers } from './providers';
@@ -7,6 +7,13 @@ import { MotionProvider } from '@/components/motion/MotionProvider';
 import { useHydration } from '@/hooks/useHydration';
 import { useSettingsStore } from '@/stores/settings-store';
 import { OnboardingFlow } from '@/features/onboarding/OnboardingFlow';
+
+// Rarely on screen, so it stays out of the eager bundle.
+const MilestoneOverlay = lazy(() =>
+  import('@/features/milestones/MilestoneOverlay').then((m) => ({
+    default: m.MilestoneOverlay,
+  })),
+);
 
 function AppContent() {
   const ready = useHydration();
@@ -43,7 +50,16 @@ function AppContent() {
     return <OnboardingFlow />;
   }
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      {/* Mounted outside the router so a stamp survives navigation, and only
+          after onboarding so its bulk marking can never trigger one. */}
+      <Suspense fallback={null}>
+        <MilestoneOverlay />
+      </Suspense>
+    </>
+  );
 }
 
 export function App() {
