@@ -3,6 +3,7 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
 import { Providers } from './providers';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { MotionProvider } from '@/components/motion/MotionProvider';
 import { useHydration } from '@/hooks/useHydration';
 import { useSettingsStore } from '@/stores/settings-store';
 import { OnboardingFlow } from '@/features/onboarding/OnboardingFlow';
@@ -52,7 +53,9 @@ export function App() {
       fallbackDescription="Try reloading the app. Your data stays saved on this device."
     >
       <Providers>
-        <AppContent />
+        <MotionProvider>
+          <AppContent />
+        </MotionProvider>
       </Providers>
     </ErrorBoundary>
   );

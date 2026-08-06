@@ -6,16 +6,37 @@ import type { CountryVisit, CountryStatus, Tag, LocalPhoto, AppData, Visit } fro
 
 declare const __APP_VERSION__: string;
 
+/**
+ * Where a status change came from. Animations and milestone celebrations only
+ * fire for `user` — never for the bulk writes that happen during onboarding,
+ * import, or hydration, which would otherwise machine-gun the screen.
+ */
+export type MarkOrigin = 'user' | 'bulk';
+
+export interface MarkEvent {
+  countryCode: string;
+  status: CountryStatus;
+  /** Timestamp, also the key that makes repeat marks of the same country distinct. */
+  at: number;
+  origin: MarkOrigin;
+}
+
 interface CountryStoreState {
   visits: Map<string, CountryVisit>;
   tags: Map<string, Tag>;
   photos: Map<string, Omit<LocalPhoto, 'blob' | 'thumbnailBlob'>>;
   isHydrated: boolean;
+  /** The most recent status change, consumed by map + milestone animations. */
+  lastMarked: MarkEvent | null;
 }
 
 interface CountryStoreActions {
   hydrate: () => Promise<void>;
-  setCountryStatus: (countryCode: string, status: CountryStatus) => Promise<void>;
+  setCountryStatus: (
+    countryCode: string,
+    status: CountryStatus,
+    origin?: MarkOrigin,
+  ) => Promise<void>;
   removeCountryVisit: (countryCode: string) => Promise<void>;
   updateCountryVisit: (countryCode: string, patch: Partial<CountryVisit>) => Promise<void>;
   addVisit: (countryCode: string, visit: Omit<Visit, 'id'>) => Promise<void>;
@@ -56,6 +77,7 @@ export const useCountryStore = create<CountryStoreState & CountryStoreActions>()
   tags: new Map(),
   photos: new Map(),
   isHydrated: false,
+  lastMarked: null,
 
   hydrate: async () => {
     const [visitArr, tagArr, photoArr] = await Promise.all([
@@ -73,17 +95,23 @@ export const useCountryStore = create<CountryStoreState & CountryStoreActions>()
       }),
     );
 
-    set({ visits, tags, photos, isHydrated: true });
+    // lastMarked is deliberately cleared: hydrate runs on app start and at the
+    // end of importData, and neither is a user marking a country. Leaving a
+    // stale event here would fire a bloom or a milestone stamp for work the
+    // user didn't just do.
+    set({ visits, tags, photos, isHydrated: true, lastMarked: null });
   },
 
-  setCountryStatus: async (countryCode, status) => {
+  setCountryStatus: async (countryCode, status, origin = 'user') => {
+    const markEvent: MarkEvent = { countryCode, status, at: Date.now(), origin };
+
     if (status === 'not_visited') {
       const existing = get().visits.get(countryCode);
       if (existing) {
         set((s) => {
           const next = new Map(s.visits);
           next.delete(countryCode);
-          return { visits: next };
+          return { visits: next, lastMarked: markEvent };
         });
         await db.countryVisits.delete(existing.id);
       }
@@ -96,7 +124,7 @@ export const useCountryStore = create<CountryStoreState & CountryStoreActions>()
     set((s) => {
       const next = new Map(s.visits);
       next.set(countryCode, record);
-      return { visits: next };
+      return { visits: next, lastMarked: markEvent };
     });
 
     await db.countryVisits.put(record);
@@ -436,6 +464,7 @@ export const useCountryStore = create<CountryStoreState & CountryStoreActions>()
       visits: new Map(),
       tags: new Map(),
       photos: new Map(),
+      lastMarked: null,
     });
   },
 }));

@@ -38,12 +38,15 @@ export function OnboardingFlow() {
   }, []);
 
   const handleComplete = async () => {
+    // 'bulk' origin: onboarding can mark dozens of countries at once, and
+    // celebrating each one would machine-gun stamps at a user who hasn't even
+    // reached the map yet.
     if (homeCountry) {
       updateSettings({ homeCountry });
-      await setCountryStatus(homeCountry, 'visited');
+      await setCountryStatus(homeCountry, 'visited', 'bulk');
     }
     for (const code of selectedCountries) {
-      await setCountryStatus(code, 'visited');
+      await setCountryStatus(code, 'visited', 'bulk');
     }
     completeOnboarding();
   };
